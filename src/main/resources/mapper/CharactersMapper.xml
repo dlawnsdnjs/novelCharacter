@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.novelcharacter.mapper.CharactersMapper">
+    <insert id="insertCharacter" parameterType="CharactersDTO">
+        INSERT INTO Characters (
+        novelNum,
+        characterName,
+        characterJob
+        ) VALUES (
+        #{novelNum},
+        #{characterName},
+        #{characterJob}
+        );
+    </insert>
+
+    <select id="selectCharacter" resultType="CharactersDTO">
+        SELECT * FROM Characters WHERE novelNum = #{novelNum} AND characterName = #{characterName};
+    </select>
+
+    <select id="selectCharacterList" resultType="CharactersDTO">
+        SELECT * FROM Characters WHERE novelNum = #{novelNum};
+    </select>
+
+    <select id="searchCharacterList" resultType="CharactersDTO">
+    SELECT * FROM Characters WHERE novelNum = #{novelNum} AND characterName LIKE CONCAT('%', #{search}, '%');
+    </select>
+    
+    <update id="updateCharacter" parameterType="CharactersDTO">
+        UPDATE
+            Characters
+        SET
+            characterJob = #{characterJob}
+        WHERE
+            novelNum = #{novelNum} AND characterName = #{characterName};
+    </update>
+
+    <delete id="deleteCharacter" >
+        DELETE FROM Characters WHERE novelNum = #{novelNum} AND characterName = #{characterName};
+    </delete>
+
+    <delete id="deleteCharacterList">
+        DELETE FROM Characters WHERE novelNum = #{novelNum};
+    </delete>
+</mapper>
