@@ -9,7 +9,7 @@ import java.util.List;
 public interface NovelMapper {
     public void insertNovel(NovelDTO novelDTO);
     public List<NovelDTO> selectAllNovel();
-    public NovelDTO selectNovelOne(long novelNum);
+    public NovelDTO selectNovelById(long novelNum);
     public List<NovelDTO> searchNovel(String search);
     public void updateNovel(NovelDTO novelDTO);
     public void deleteNovel(long novelNum);

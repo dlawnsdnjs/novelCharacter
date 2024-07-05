@@ -28,7 +28,7 @@ public class NovelServiceImpl implements NovelService{
 
     @Override
     public NovelDTO selectNovelOne(long novelNum) {
-        return novelMapper.selectNovelOne(novelNum);
+        return novelMapper.selectNovelById(novelNum);
     }
 
     @Override

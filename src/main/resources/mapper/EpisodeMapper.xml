@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.novel_character.mapper.EpisodeMapper">
+    <insert id="insertEpisode" useGeneratedKeys="true" parameterType="EpisodeDTO">
+        INSERT INTO Episode (novelNum, episodeName, episodeSummary) VALUES (#{novelNum}, #{episodeName}, #{episodeSummary})
+    </insert>
+
+    <select id="selectAllEpisode" resultType="EpisodeDTO">
+        SELECT * FROM Episode WHERE novelNum = #{novelNum};
+    </select>
+
+    <select id="selectEpisodeById" resultType="EpisodeDTO">
+        SELECT * FROM Episode WHERE episodeNum = #{episodeNum}
+    </select>
+
+    <select id="searchEpisode" resultType="EpisodeDTO">
+        SELECT * FROM Episode WHERE episodeName LIKE CONCAT('%', #{search}, '%');
+    </select>
+
+    <update id="updateEpisode" parameterType="EpisodeDTO">
+        UPDATE Episode SET novelNum = #{novelNum}, episodeName = #{episodeName}, episodeSummary = #{episodeSummary} WHERE episodeNum = #{episodeNum}
+    </update>
+
+    <delete id="deleteEpisode">
+        DELETE FROM Episode WHERE episodeNum = #{episodeNum}
+    </delete>
+</mapper>

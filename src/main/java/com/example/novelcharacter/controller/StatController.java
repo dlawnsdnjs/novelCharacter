@@ -1,9 +1,5 @@
 package com.example.novelcharacter.controller;
 
-import com.example.novelcharacter.dto.CharactersDTO;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-
 public class StatController {
    /* @PostMapping("/statForm")
     public String insertStat(long novelNum, Model model){

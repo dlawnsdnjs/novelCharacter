@@ -1,8 +1,12 @@
 package com.example.novelcharacter.dto;
 
-public class CharacterStatDTO {
+public class StatValueDTO {
     private long novelNum;
-    private String characterName;
+
+
+
+    private long episodeNUm;
+    private long characterNum;
     private long statCode;
     private long value;
 
@@ -10,7 +14,8 @@ public class CharacterStatDTO {
     public String toString() {
         return "CharacterStatDTO{" +
                 "novelNum=" + novelNum +
-                ", characterName='" + characterName + '\'' +
+                ", episodeNUm=" + episodeNUm +
+                ", characterNum='" + characterNum + '\'' +
                 ", statCode=" + statCode +
                 ", value=" + value +
                 '}';
@@ -24,12 +29,19 @@ public class CharacterStatDTO {
         this.novelNum = novelNum;
     }
 
-    public String getCharacterName() {
-        return characterName;
+    public long getEpisodeNUm() {
+        return episodeNUm;
     }
 
-    public void setCharacterName(String characterName) {
-        this.characterName = characterName;
+    public void setEpisodeNUm(long episodeNUm) {
+        this.episodeNUm = episodeNUm;
+    }
+    public long getCharacterNum() {
+        return characterNum;
+    }
+
+    public void setCharacterNum(long characterNum) {
+        this.characterNum = characterNum;
     }
 
     public long getStatCode() {

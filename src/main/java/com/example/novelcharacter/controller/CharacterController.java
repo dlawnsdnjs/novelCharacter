@@ -1,7 +1,6 @@
 package com.example.novelcharacter.controller;
 
-import com.example.novelcharacter.dto.CharactersDTO;
-import com.example.novelcharacter.mapper.CharactersMapper;
+import com.example.novelcharacter.dto.CharacterDTO;
 import com.example.novelcharacter.service.CharacterServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,9 +17,9 @@ public class CharacterController {
 
     @PostMapping("/characterForm")
     public String characterForm(long novelNum, Model model){
-        CharactersDTO charactersDTO = new CharactersDTO();
-        charactersDTO.setNovelNum(novelNum);
-        model.addAttribute("charactersDTO", charactersDTO);
+        CharacterDTO characterDTO = new CharacterDTO();
+        characterDTO.setNovelNum(novelNum);
+        model.addAttribute("charactersDTO", characterDTO);
         return "character/characterForm";
     }
 

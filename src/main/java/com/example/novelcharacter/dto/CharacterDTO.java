@@ -1,16 +1,16 @@
 package com.example.novelcharacter.dto;
 
-public class CharactersDTO {
+public class CharacterDTO {
     private long novelNum;
     private String characterName;
-    private String characterJob;
+    private long characterNum;
 
     @Override
     public String toString() {
         return "BaseStatDTO{" +
                 "novelNum=" + novelNum +
                 ", characterName='" + characterName + '\'' +
-                ", characterJob='" + characterJob + '\'' +
+                ", characterJob='" + characterNum + '\'' +
                 '}';
     }
 
@@ -30,11 +30,11 @@ public class CharactersDTO {
         this.characterName = characterName;
     }
 
-    public String getCharacterJob() {
-        return characterJob;
+    public long getCharacterNum() {
+        return characterNum;
     }
 
-    public void setCharacterJob(String characterJob) {
-        this.characterJob = characterJob;
+    public void setCharacterNum(long characterNum) {
+        this.characterNum = characterNum;
     }
 }

@@ -6,7 +6,7 @@ public class CharacterAllStatDTO {
     private long novelNum;
     private String characterName;
     private String characterJob;
-    private List<CharacterStatDTO> characterStatDTOS;
+    private List<StatValueDTO> statValueDTOS;
 
     @Override
     public String toString() {
@@ -14,7 +14,7 @@ public class CharacterAllStatDTO {
                 "novelNum=" + novelNum +
                 ", characterName='" + characterName + '\'' +
                 ", characterJob='" + characterJob + '\'' +
-                ", characterStatDTOS=" + characterStatDTOS +
+                ", characterStatDTOS=" + statValueDTOS +
                 '}';
     }
 
@@ -42,11 +42,11 @@ public class CharacterAllStatDTO {
         this.characterJob = characterJob;
     }
 
-    public List<CharacterStatDTO> getCharacterStatDTOS() {
-        return characterStatDTOS;
+    public List<StatValueDTO> getCharacterStatDTOS() {
+        return statValueDTOS;
     }
 
-    public void setCharacterStatDTOS(List<CharacterStatDTO> characterStatDTOS) {
-        this.characterStatDTOS = characterStatDTOS;
+    public void setCharacterStatDTOS(List<StatValueDTO> statValueDTOS) {
+        this.statValueDTOS = statValueDTOS;
     }
 }

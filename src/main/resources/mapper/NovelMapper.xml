@@ -1,40 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.novelcharacter.mapper.NovelMapper">
-    <insert id="insertNovel" parameterType="NovelDTO">
-        <!-- INSERT INTO baseStat (novelNum, novelTitle, titleAlias) VALUES (1, '최고의 소설', '최소'); -->
-        INSERT INTO novelList (
-        novelTitle,
-        titleAlias
-        ) VALUES (
-        #{novelTitle},
-        #{titleAlias}
-        );
-    </insert>
+<mapper namespace="com.example.novel_character.mapper.NovelMapper">
+
 
     <select id="selectAllNovel" resultType="NovelDTO">
         SELECT * From novelList;
     </select>
 
-    <select id="selectNovelOne" resultType="NovelDTO">
-        SELECT * FROM novelList WHERE novelNum = #{novelNum};
+    <select id="selectNovelById" resultType="NovelDTO">
+        SELECT * FROM Novel WHERE novelNum = #{novelNum}''
     </select>
 
+    <insert id="insertNovel" parameterType="NovelDTO">
+        INSERT INTO Novel (novelTitle, writer) VALUES (#{novelTitle}, #{writer});
+    </insert>
+
     <select id="searchNovel" resultType="NovelDTO">
-        SELECT * FROM novelList WHERE novelTitle LIKE CONCAT('%', #{search}, '%') OR titleAlias LIKE CONCAT('%', #{search}, '%');
+        SELECT * FROM novelList WHERE novelTitle LIKE CONCAT('%', #{search}, '%');
     </select>
 
     <update id="updateNovel" parameterType="novelDTO">
-        UPDATE
-            novelList
-        SET
-            novelTitle = #{novelTitle},
-            titleAlias = #{titleAlias}
-        WHERE
-            novelNum = #{novelNum};
+        UPDATE Novel SET novelTitle = #{novelTitle}, writer = #{writer} WHERE novelNum = #{novelNum};
     </update>
 
     <delete id="deleteNovel">
-        DELETE FROM novelList WHERE novelNum = #{novelNum};
+        DELETE FROM Novel WHERE novelNum = #{novelNum};
     </delete>
 </mapper>

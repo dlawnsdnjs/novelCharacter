@@ -2,7 +2,7 @@ package com.example.novelcharacter.service;
 
 import com.example.novelcharacter.dto.ChangeListDTO;
 import com.example.novelcharacter.dto.ChangeStatDTO;
-import com.example.novelcharacter.dto.CharacterStatDTO;
+import com.example.novelcharacter.dto.StatValueDTO;
 import com.example.novelcharacter.dto.StatDTO;
 import com.example.novelcharacter.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,23 +45,23 @@ public class StatServiceImpl implements StatService{
     }
 
     @Override
-    public void insertCharacterStat(CharacterStatDTO characterStatDTO) {
-        characterStatMapper.insertCharacterStat(characterStatDTO);
+    public void insertCharacterStat(StatValueDTO statValueDTO) {
+        characterStatMapper.insertCharacterStat(statValueDTO);
     }
 
     @Override
-    public CharacterStatDTO selectCharacterStat(long novelNum, String characterName, long statCode) {
+    public StatValueDTO selectCharacterStat(long novelNum, String characterName, long statCode) {
         return characterStatMapper.selectCharacterStat(novelNum, characterName, statCode);
     }
 
     @Override
-    public List<CharacterStatDTO> selectCharacterStatList(long novelNum, String characterName) {
+    public List<StatValueDTO> selectCharacterStatList(long novelNum, String characterName) {
         return characterStatMapper.selectCharacterStatList(novelNum, characterName);
     }
 
     @Override
-    public void updateCharacterStat(CharacterStatDTO characterStatDTO) {
-        characterStatMapper.updateCharacterStat(characterStatDTO);
+    public void updateCharacterStat(StatValueDTO statValueDTO) {
+        characterStatMapper.updateCharacterStat(statValueDTO);
     }
 
     @Override

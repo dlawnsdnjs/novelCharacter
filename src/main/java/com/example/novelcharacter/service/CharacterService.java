@@ -1,15 +1,15 @@
 package com.example.novelcharacter.service;
 
-import com.example.novelcharacter.dto.CharactersDTO;
+import com.example.novelcharacter.dto.CharacterDTO;
 
 import java.util.List;
 
 public interface CharacterService {
-    void insertCharacter(CharactersDTO charactersDTO);
-    CharactersDTO selectCharacter(long novelNum, String characterName);
-    List<CharactersDTO> selectCharacterList(long novelNum);
-    List<CharactersDTO> searchCharacterList(long novelNum, String character);
-    void updateCharacter(CharactersDTO charactersDTO);
+    void insertCharacter(CharacterDTO characterDTO);
+    CharacterDTO selectCharacter(long novelNum, String characterName);
+    List<CharacterDTO> selectCharacterList(long novelNum);
+    List<CharacterDTO> searchCharacterList(long novelNum, String character);
+    void updateCharacter(CharacterDTO characterDTO);
     int deleteCharacter(long novelNum, String CharacterName);
     int deleteCharacterList(long novelNum);
 }

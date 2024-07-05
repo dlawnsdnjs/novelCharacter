@@ -52,7 +52,7 @@
     <tr th:each="n : ${novelList}">
         <td th:text="${n.novelNum}"></td>
         <td th:text="${n.novelTitle}"></td>
-        <td th:text="${n.titleAlias}"></td>
+        <td th:text="${n.writer}"></td>
         <td>
             <!-- 버튼 클릭 시 JavaScript 함수 호출 -->
             <button type="button" th:onclick="'redirectToCharacterPage(\'' + ${n.novelNum} + '\')'">선택</button>

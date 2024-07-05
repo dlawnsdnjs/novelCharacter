@@ -2,7 +2,7 @@ package com.example.novelcharacter.service;
 
 import com.example.novelcharacter.dto.ChangeListDTO;
 import com.example.novelcharacter.dto.ChangeStatDTO;
-import com.example.novelcharacter.dto.CharacterStatDTO;
+import com.example.novelcharacter.dto.StatValueDTO;
 import com.example.novelcharacter.dto.StatDTO;
 
 import java.util.List;
@@ -13,10 +13,10 @@ public interface StatService {
     void updateStat(StatDTO statDTO);
     int deleteStat(long statCode);
 
-    public void insertCharacterStat(CharacterStatDTO characterStatDTO);
-    public CharacterStatDTO selectCharacterStat(long novelNum, String characterName, long statCode);
-    public List<CharacterStatDTO> selectCharacterStatList(long novelNum, String characterName);
-    public void updateCharacterStat(CharacterStatDTO characterStatDTO);
+    public void insertCharacterStat(StatValueDTO statValueDTO);
+    public StatValueDTO selectCharacterStat(long novelNum, String characterName, long statCode);
+    public List<StatValueDTO> selectCharacterStatList(long novelNum, String characterName);
+    public void updateCharacterStat(StatValueDTO statValueDTO);
     public int deleteCharacterStat(long novelNum, String characterName, long statCode);
 
     public void insertChangeStat(ChangeStatDTO changeStatDTO);

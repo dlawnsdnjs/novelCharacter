@@ -7,8 +7,8 @@
 <body>
     <h1>스탯 저장</h1>
 
-    <form action="#" th:action="@{/stat}" th:object="${charactersDTO}" method="POST">
-        <input type="hidden" id="novelNum" name="novelNum" th:value="${charactersDTO.novelNum}">
+    <form action="#" th:action="@{/stat}" th:object="${characterDTO}" method="POST">
+        <input type="hidden" id="novelNum" name="novelNum" th:value="${characterDTO.novelNum}">
 
         <label for="characterName">이름 : </label>
         <input type="text" id="characterName" th:field="*{characterName}"><br><br>
