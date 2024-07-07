@@ -2,9 +2,6 @@ package com.example.novelcharacter.dto;
 
 public class StatValueDTO {
     private long novelNum;
-
-
-
     private long episodeNUm;
     private long characterNum;
     private long statCode;

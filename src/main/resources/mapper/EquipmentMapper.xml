@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.novel_character.mapper.EquipmentMapper">
+    <select id="selectEquipmentById" resultType="EquipmentDTO">
+        SELECT * FROM Equipment WHERE equipmentNum = #{equipmentNum}
+    </select>
+
+    <select id="selectEquipmentsById" resultType="EquipmentDTO">
+        SELECT * FROM Equipment WHERE novelNum = #{novelNum}
+    </select>
+
+    <insert id="insertEquipment" useGeneratedKeys="true" parameterType="EquipmentDTO">
+        INSERT INTO Equipment (novelNum, equipmentName, wearingArea) VALUES (#{novelNum}, #{equipmentName}, #{wearingArea})
+    </insert>
+
+    <update id="updateEquipment" parameterType="EquipmentDTO">
+        UPDATE Equipment SET novelNum = #{novelNum}, equipmentName = #{equipmentName}, wearingArea = #{wearingArea} WHERE equipmentNum = #{equipmentNum}
+    </update>
+
+    <delete id="deleteEquipment" parameterType="EquipmentDTO">
+        DELETE FROM Equipment WHERE equipmentNum = #{equipmentNum}
+    </delete>
+</mapper>

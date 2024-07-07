@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.novel_character.mapper.StatValueMapper">
+    <select id="selectStatValuesByIds" resultType="StatValueDTO">
+        SELECT * FROM StatValue WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum}
+    </select>
+
+    <select id="selectStatValueByIds" resultType="StatValueDTO">
+        SELECT * FROM StatValue WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum} AND statNum = #{statNum}
+    </select>
+
+    <insert id="insertStatValue" parameterType="StatValueDTO">
+        INSERT INTO StatValue (novelNum, episodeNum, characterNum, statNum, statValue) VALUES (#{novelNum}, #{episodeNum}, #{characterNum}, #{statNum}, #{statValue})
+    </insert>
+
+    <update id="updateStatValue" parameterType="StatValueDTO">
+        UPDATE StatValue SET statValue = #{statValue} WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum} AND statNum = #{statNum}
+    </update>
+
+    <delete id="deleteStatValue" parameterType="StatValueDTO">
+        DELETE FROM StatValue WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum} AND statNum = #{statNum}
+    </delete>
+</mapper>
