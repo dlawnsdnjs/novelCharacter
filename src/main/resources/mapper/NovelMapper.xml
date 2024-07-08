@@ -8,7 +8,7 @@
     </select>
 
     <select id="selectNovelById" resultType="NovelDTO">
-        SELECT * FROM Novel WHERE novelNum = #{novelNum}''
+        SELECT * FROM Novel WHERE novelNum = #{novelNum};
     </select>
 
     <insert id="insertNovel" parameterType="NovelDTO">

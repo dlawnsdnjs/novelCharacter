@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.novel_character.mapper.EpisodeCharacterMapper">
     <select id="selectEpisodeCharacterByIds" resultType="EpisodeCharacterDTO">
-        SELECT * FROM EpisodeCharacter WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum}
+        SELECT * FROM EpisodeCharacter WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum};
     </select>
 
     <select id="selectEpisodeCharactersByIds" resultType="EpisodeCharacterDTO">
@@ -14,10 +14,10 @@
     </select>
 
     <insert id="insertEpisodeCharacter" parameterType="EpisodeCharacterDTO">
-        INSERT INTO EpisodeCharacter (novelNum, episodeNum, characterNum) VALUES (#{novelNum}, #{episodeNum}, #{characterNum})
+        INSERT INTO EpisodeCharacter (novelNum, episodeNum, characterNum) VALUES (#{novelNum}, #{episodeNum}, #{characterNum});
     </insert>
 
     <delete id="deleteEpisodeCharacter" parameterType="EpisodeCharacterDTO">
-        DELETE FROM EpisodeCharacter WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum}
+        DELETE FROM EpisodeCharacter WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum};
     </delete>
 </mapper>
