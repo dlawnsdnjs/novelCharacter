@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.novel_character.mapper.AchievementEffectMapper">
+    <select id="selectAchievementEffectByIds" resultType="AchievementEffectDTO">
+        SELECT * FROM AchievementEffect WHERE achievementNum = #{achievementNum} AND statNum = #{statNum} AND statType = #{statType};
+    </select>
+
+    <select id="selectAchievementEffectsByIds" resultType="AchievementEffectDTO">
+        SELECT * FROM AchievementEffect WHERE achievementNum = #{achievementNum};
+    </select>
+
+    <insert id="insertAchievementEffect" parameterType="AchievementEffectDTO">
+        INSERT INTO AchievementEffect (achievementNum, statNum, statType, statValue) VALUES (#{achievementNum}, #{statNum}, #{statType}, #{statValue});
+    </insert>
+
+    <update id="updateAchievementEffect" parameterType="AchievementEffectDTO">
+        UPDATE AchievementEffect SET statValue = #{statValue} WHERE achievementNum = #{achievementNum} AND statNum = #{statNum} AND statType = #{statType};
+    </update>
+
+    <delete id="deleteAchievementEffect" parameterType="AchievementEffectDTO">
+        DELETE FROM AchievementEffect WHERE achievementNum = #{achievementNum} AND statNum = #{statNum} AND statType = #{statType};
+    </delete>
+</mapper>

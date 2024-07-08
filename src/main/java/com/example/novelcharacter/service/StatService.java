@@ -1,7 +1,5 @@
 package com.example.novelcharacter.service;
 
-import com.example.novelcharacter.dto.ChangeListDTO;
-import com.example.novelcharacter.dto.ChangeStatDTO;
 import com.example.novelcharacter.dto.StatValueDTO;
 import com.example.novelcharacter.dto.StatDTO;
 
