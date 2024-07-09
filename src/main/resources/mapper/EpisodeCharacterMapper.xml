@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.novel_character.mapper.EpisodeCharacterMapper">
+<mapper namespace="com.example.novelcharacter.mapper.EpisodeCharacterMapper">
     <select id="selectEpisodeCharacterByIds" resultType="EpisodeCharacterDTO">
         SELECT * FROM EpisodeCharacter WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum};
     </select>
 
     <select id="selectEpisodeCharactersByIds" resultType="EpisodeCharacterDTO">
-        SELECT * FROM EpisodeCharacter WHERE novelNum = #{novelNum} AND episodeNum = {episodeNum};
+        SELECT * FROM EpisodeCharacter WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum};
     </select>
 
     <select id="selectCharacterEpisodesByIds" resultType="EpisodeCharacterDTO">
-        SELECT * FROM EpisodeCharacter WHERE novelNum = #{novelNum} AND characterNum = {characterNum};
+        SELECT * FROM EpisodeCharacter WHERE novelNum = #{novelNum} AND characterNum = #{characterNum};
     </select>
 
     <insert id="insertEpisodeCharacter" parameterType="EpisodeCharacterDTO">

@@ -9,10 +9,10 @@ import java.util.List;
 public interface CharacterMapper {
     public void insertCharacter(CharacterDTO characterDTO);
     public CharacterDTO selectCharacterById(long characterNum);
-    public CharacterDTO selectCharacter(long novelNum, String characterName);
+    public CharacterDTO selectCharacter(long novelNum, long characterNum);
     public List<CharacterDTO> selectCharacterList(long novelNum);
     public List<CharacterDTO> searchCharacterList(long novelNum, String search);
     public void updateCharacter(CharacterDTO characterDTO);
-    public int deleteCharacter(long novelNum, String characterName);
+    public int deleteCharacter(long novelNum, long characterNum);
     public int deleteCharacterList(long novelNum);
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.novel_character.mapper.AchievementEffectMapper">
+<mapper namespace="com.example.novelcharacter.mapper.AchievementEffectMapper">
     <select id="selectAchievementEffectByIds" resultType="AchievementEffectDTO">
         SELECT * FROM AchievementEffect WHERE achievementNum = #{achievementNum} AND statNum = #{statNum} AND statType = #{statType};
     </select>

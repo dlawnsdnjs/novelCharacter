@@ -21,7 +21,7 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public CharacterDTO selectCharacter(long novelNum, String characterName) {
+    public CharacterDTO selectCharacter(long novelNum, long characterName) {
         return characterMapper.selectCharacter(novelNum, characterName);
     }
 
@@ -41,7 +41,7 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public int deleteCharacter(long novelNum, String CharacterName) {
+    public int deleteCharacter(long novelNum, long CharacterName) {
         return characterMapper.deleteCharacter(novelNum, CharacterName);
     }
 

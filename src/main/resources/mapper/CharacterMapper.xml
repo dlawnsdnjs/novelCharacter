@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.novel_character.mapper.CharacterMapper">
+<mapper namespace="com.example.novelcharacter.mapper.CharacterMapper">
     <select id="selectCharacterById" resultType="CharacterDTO">
         SELECT * FROM `Character` WHERE characterNum = #{characterNum};
     </select>
 
     <select id="selectCharacter" resultType="CharacterDTO">
-        SELECT * FROM `Character` WHERE novelNum = #{novelNum} AND characterName = #{characterName};
+        SELECT * FROM `Character` WHERE novelNum = #{novelNum} AND characterNum = #{characterNum};
     </select>
 
     <select id="selectCharacterList" resultType="CharacterDTO">
@@ -21,12 +21,12 @@
         INSERT INTO `Character` (novelNum, characterName) VALUES (#{novelNum}, #{characterName});
     </insert>
 
-    <update id="updateCharacter">
+    <update id="updateCharacter" parameterType="CharacterDTO">
         UPDATE `Character` SET novelNum = #{novelNum}, characterName = #{characterName} WHERE characterNum = #{characterNum};
     </update>
 
     <delete id="deleteCharacter">
-        DELETE FROM `Character` WHERE characterNum = #{characterNum};
+        DELETE FROM `Character` WHERE novelNum = #{novelNum} AND characterNum = #{characterNum};
     </delete>
 
     <delete id="deleteCharacterList">

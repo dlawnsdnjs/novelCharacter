@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.novel_character.mapper.AchievementMapper">
+<mapper namespace="com.example.novelcharacter.mapper.AchievementMapper">
     <select id="selectAchievementById" resultType="AchievementDTO">
         SELECT * FROM Achievement WHERE achievementNum = #{achievementNum};
     </select>
@@ -17,7 +17,7 @@
         UPDATE Achievement SET novelNum = #{novelNum}, achievementName = #{achievementName}, achievementDetail = #{achievementDetail} WHERE achievementNum = #{achievementNum};
     </update>
 
-    <delete id="deleteAchievement" parameterType="AcchievementDTO">
+    <delete id="deleteAchievement" parameterType="AchievementDTO">
         DELETE FROM Achievement WHERE achievementNum = #{achievementNum};
     </delete>
 </mapper>
