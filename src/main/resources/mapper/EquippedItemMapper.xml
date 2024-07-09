@@ -6,7 +6,7 @@
 
     </select>
 
-    <select id="selectEquippedItemsByIds" resultType="EquppedItemDTO">
+    <select id="selectEquippedItemsByIds" resultType="EquippedItemDTO">
         SELECT * FROM EquippedItem WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum};
     </select>
 

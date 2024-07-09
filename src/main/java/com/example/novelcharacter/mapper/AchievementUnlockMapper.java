@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface AchievementUnlockMapper {
+    public void insertAchievementUnlock(AchievementUnlockDTO achievementUnlockDTO);
     public AchievementUnlockDTO selectAchievementUnlockByIds(long novelNum, long episodeNum, long characterNum, long achievementNum);
     public List<AchievementUnlockDTO> selectAchievementUnlocksByIds(long novelNum, long episodeNum, long characterNum);
-    public void insertAchievementUnlock(AchievementUnlockDTO achievementUnlockDTO);
     public void deleteAchievementUnlock(AchievementUnlockDTO achievementUnlockDTO);
 
 }

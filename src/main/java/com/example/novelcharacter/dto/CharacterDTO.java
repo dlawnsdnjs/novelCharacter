@@ -7,10 +7,10 @@ public class CharacterDTO {
 
     @Override
     public String toString() {
-        return "BaseStatDTO{" +
+        return "CharacterDTO{" +
                 "novelNum=" + novelNum +
                 ", characterName='" + characterName + '\'' +
-                ", characterJob='" + characterNum + '\'' +
+                ", characterNum='" + characterNum + '\'' +
                 '}';
     }
 
