@@ -5,7 +5,7 @@ import com.example.novelcharacter.dto.NovelDTO;
 import java.util.List;
 
 public interface NovelService {
-    void insertNovel(NovelDTO novelDTO);
+    void insertNovel(String novelTitle, String writer);
     List<NovelDTO> selectAllNovel();
     NovelDTO selectNovelOne(long novelNum);
     List<NovelDTO> searchNovel(String search);

@@ -17,8 +17,8 @@ public class NovelServiceImpl implements NovelService{
     }
 
     @Override
-    public void insertNovel(NovelDTO novelDTO) {
-        novelMapper.insertNovel(novelDTO);
+    public void insertNovel(String novelTitle, String writer) {
+        novelMapper.insertNovel(novelTitle, writer);
     }
 
     @Override

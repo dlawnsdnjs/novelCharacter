@@ -4,19 +4,19 @@
 
 
     <select id="selectAllNovel" resultType="NovelDTO">
-        SELECT * From novelList;
+        SELECT * From Novel;
     </select>
 
     <select id="selectNovelById" resultType="NovelDTO">
         SELECT * FROM Novel WHERE novelNum = #{novelNum};
     </select>
 
-    <insert id="insertNovel" parameterType="NovelDTO">
+    <insert id="insertNovel">
         INSERT INTO Novel (novelTitle, writer) VALUES (#{novelTitle}, #{writer});
     </insert>
 
     <select id="searchNovel" resultType="NovelDTO">
-        SELECT * FROM novelList WHERE novelTitle LIKE CONCAT('%', #{search}, '%');
+        SELECT * FROM Novel WHERE novelTitle LIKE CONCAT('%', #{search}, '%');
     </select>
 
     <update id="updateNovel" parameterType="novelDTO">

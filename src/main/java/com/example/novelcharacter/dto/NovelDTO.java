@@ -30,11 +30,11 @@ public class NovelDTO {
         this.novelTitle = novelTitle;
     }
 
-    public String getwriter() {
+    public String getWriter() {
         return writer;
     }
 
-    public void setTitleAlias(String titleAlias) {
-        this.writer = titleAlias;
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 }

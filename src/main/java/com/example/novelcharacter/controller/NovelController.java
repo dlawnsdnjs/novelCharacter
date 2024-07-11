@@ -23,10 +23,10 @@ public class NovelController {
     }
 
     @PostMapping("/novel")
-    public String novel(NovelDTO novelDTO, Model model){
-        novelService.insertNovel(novelDTO);
-        model.addAttribute("novelDTO", novelDTO);
-        return "novel/novel";
+    public String novel(String novelTitle, String writer, Model model){
+        novelService.insertNovel(novelTitle, writer);
+        model.addAttribute("novelList", novelService.selectAllNovel());
+        return "novel/novelList";
     }
 
     @PostMapping("/novelList")
@@ -34,6 +34,13 @@ public class NovelController {
         model.addAttribute("novelList", novelService.searchNovel(search));
         return "novel/novelList";
     }
+
+    @GetMapping("/novelList")
+    public String novelList(Model model){
+        model.addAttribute("novelList", novelService.selectAllNovel());
+        return "novel/novelList";
+    }
+
 
     @PostMapping("/deleteNovel")
     public String deleteNovel(long novelNum, Model model){
