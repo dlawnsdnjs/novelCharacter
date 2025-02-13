@@ -12,7 +12,7 @@
     </select>
 
     <insert id="insertNovel">
-        INSERT INTO Novel (novelTitle, writer) VALUES (#{novelTitle}, #{writer});
+        INSERT INTO Novel (novelTitle, uuid) VALUES (#{novelTitle}, #{uuid});
     </insert>
 
     <select id="searchNovel" resultType="NovelDTO">
@@ -20,7 +20,7 @@
     </select>
 
     <update id="updateNovel" parameterType="novelDTO">
-        UPDATE Novel SET novelTitle = #{novelTitle}, writer = #{writer} WHERE novelNum = #{novelNum};
+        UPDATE Novel SET novelTitle = #{novelTitle}, uuid = #{uuid} WHERE novelNum = #{novelNum};
     </update>
 
     <delete id="deleteNovel">

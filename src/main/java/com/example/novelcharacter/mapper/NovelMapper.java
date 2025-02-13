@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface NovelMapper {
-    public void insertNovel(String novelTitle, String writer);
+    public void insertNovel(String novelTitle, long uuid);
     public List<NovelDTO> selectAllNovel();
     public NovelDTO selectNovelById(long novelNum);
     public List<NovelDTO> searchNovel(String search);
