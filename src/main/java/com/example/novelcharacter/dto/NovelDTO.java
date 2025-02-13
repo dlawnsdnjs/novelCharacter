@@ -3,14 +3,14 @@ package com.example.novelcharacter.dto;
 public class NovelDTO {
     private long novelNum;
     private String novelTitle;
-    private String writer;
+    private long uuid;
 
     @Override
     public String toString() {
-        return "novelDTO{" +
+        return "NovelDTO{" +
                 "novelNum=" + novelNum +
                 ", novelTitle='" + novelTitle + '\'' +
-                ", titleAlias='" + writer + '\'' +
+                ", uuid=" + uuid +
                 '}';
     }
 
@@ -30,11 +30,11 @@ public class NovelDTO {
         this.novelTitle = novelTitle;
     }
 
-    public String getWriter() {
-        return writer;
+    public long getUuid() {
+        return uuid;
     }
 
-    public void setWriter(String writer) {
-        this.writer = writer;
+    public void setUuid(long uuid) {
+        this.uuid = uuid;
     }
 }

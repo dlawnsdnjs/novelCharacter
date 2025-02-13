@@ -3,7 +3,7 @@ package com.example.novelcharacter.dto;
 public class EpisodeDTO {
     private long novelNum;
     private long episodeNum;
-    private String episodeName;
+    private String episodeTitle;
     private String episodeSummary;
 
     @Override
@@ -11,7 +11,7 @@ public class EpisodeDTO {
         return "EpisodeDTO{" +
                 "novelNum=" + novelNum +
                 ", episodeNum=" + episodeNum +
-                ", episodeName='" + episodeName + '\'' +
+                ", episodeName='" + episodeTitle + '\'' +
                 ", episodeSummary='" + episodeSummary + '\'' +
                 '}';
     }
@@ -32,12 +32,12 @@ public class EpisodeDTO {
         this.episodeNum = episodeNum;
     }
 
-    public String getEpisodeName() {
-        return episodeName;
+    public String getEpisodeTitle() {
+        return episodeTitle;
     }
 
-    public void setEpisodeName(String episodeName) {
-        this.episodeName = episodeName;
+    public void setEpisodeTitle(String episodeTitle) {
+        this.episodeTitle = episodeTitle;
     }
 
     public String getEpisodeSummary() {

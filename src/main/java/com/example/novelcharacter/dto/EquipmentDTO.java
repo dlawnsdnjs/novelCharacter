@@ -4,7 +4,7 @@ public class EquipmentDTO {
     private long novelNum;
     private long equipmentNum;
     private String equipmentName;
-    private String equipmentType;
+    private String info;
 
     @Override
     public String toString() {
@@ -12,7 +12,7 @@ public class EquipmentDTO {
                 "novelNum=" + novelNum +
                 ", equipmentNum=" + equipmentNum +
                 ", equipmentName='" + equipmentName + '\'' +
-                ", equipmentType='" + equipmentType + '\'' +
+                ", equipmentType='" + info + '\'' +
                 '}';
     }
 
@@ -40,11 +40,11 @@ public class EquipmentDTO {
         this.equipmentName = equipmentName;
     }
 
-    public String getEquipmentType() {
-        return equipmentType;
+    public String getInfo() {
+        return info;
     }
 
-    public void setEquipmentType(String equipmentType) {
-        this.equipmentType = equipmentType;
+    public void setInfo(String info) {
+        this.info = info;
     }
 }

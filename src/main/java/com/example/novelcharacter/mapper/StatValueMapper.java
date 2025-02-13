@@ -1,13 +1,13 @@
 package com.example.novelcharacter.mapper;
 
-import com.example.novelcharacter.dto.StatValueDTO;
+import com.example.novelcharacter.dto.CharacterStatDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface StatValueMapper {
-    public StatValueDTO selectStatValuesByIds(long novelNum, long episodeNum);
-    public StatValueDTO selectStatValueByIds(long novelNum, long episodeNum, long statNum);
-    public void insertStatValue(StatValueDTO statValueDTO);
-    public void updateStatValue(StatValueDTO statValueDTO);
-    public void deleteStatValue(StatValueDTO statValueDTO);
+    public CharacterStatDTO selectStatValuesByIds(long novelNum, long episodeNum);
+    public CharacterStatDTO selectStatValueByIds(long novelNum, long episodeNum, long statNum);
+    public void insertStatValue(CharacterStatDTO characterStatDTO);
+    public void updateStatValue(CharacterStatDTO characterStatDTO);
+    public void deleteStatValue(CharacterStatDTO characterStatDTO);
 }

@@ -8,13 +8,15 @@
     <h1>index (main/resources/templates/index.html)</h1>
     <button onclick="novelList()">소설 추가</button>
 
-    <form action="/novelList" method="get" target="_blank">
-        <input type="submit" value="submit">
-    </form>
+    <button onclick="login()">로그인</button>
     <script>
         function novelList(){
-            location.href = '/novel/novelList';
+            location.href = '/novel/novelList.html';
+        }
+
+        function login(){
+            location.href = '/novel/login.html';
         }
     </script>
 </body>
-</html>
+</html>c

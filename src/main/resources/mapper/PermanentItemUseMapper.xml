@@ -10,7 +10,7 @@
     </select>
 
     <insert id="insertPermanentItemUse" parameterType="PermanentItemUseDTO">
-        INSERT INTO PermanentItemUse (novelNum, episodeNum, characterNum, itemNum) VALUES (#{novelNum}, #{episodeNum}, #{characterNum}, #{itemNum});
+        INSERT INTO PermanentItemUse (novelNum, episodeNum, characterNum, itemNum, useNum) VALUES (#{novelNum}, #{episodeNum}, #{characterNum}, #{itemNum}, #{useNum});
     </insert>
 
     <delete id="deletePermanentItemUse" parameterType="PermanentItemUseDTO">

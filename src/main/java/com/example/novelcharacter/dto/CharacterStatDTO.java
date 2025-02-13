@@ -1,7 +1,6 @@
 package com.example.novelcharacter.dto;
 
-public class StatValueDTO {
-    private long novelNum;
+public class CharacterStatDTO {
     private long episodeNUm;
     private long characterNum;
     private long statCode;
@@ -10,20 +9,11 @@ public class StatValueDTO {
     @Override
     public String toString() {
         return "CharacterStatDTO{" +
-                "novelNum=" + novelNum +
                 ", episodeNUm=" + episodeNUm +
                 ", characterNum='" + characterNum + '\'' +
                 ", statCode=" + statCode +
                 ", value=" + value +
                 '}';
-    }
-
-    public long getNovelNum() {
-        return novelNum;
-    }
-
-    public void setNovelNum(long novelNum) {
-        this.novelNum = novelNum;
     }
 
     public long getEpisodeNUm() {

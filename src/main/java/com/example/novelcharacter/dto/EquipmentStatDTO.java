@@ -1,18 +1,18 @@
 package com.example.novelcharacter.dto;
 
-public class EquipmentEffectDTO {
+public class EquipmentStatDTO {
     private long equipmentNum;
-    private long statNum;
+    private long statCode;
     private String statType;
-    private long statValue;
+    private long value;
 
     @Override
     public String toString() {
         return "EquipmentEffectDTO{" +
                 "equipmentNum=" + equipmentNum +
-                ", statNum=" + statNum +
+                ", statNum=" + statCode +
                 ", statType='" + statType + '\'' +
-                ", statValue=" + statValue +
+                ", statValue=" + value +
                 '}';
     }
 
@@ -24,12 +24,12 @@ public class EquipmentEffectDTO {
         this.equipmentNum = equipmentNum;
     }
 
-    public long getStatNum() {
-        return statNum;
+    public long getStatCode() {
+        return statCode;
     }
 
-    public void setStatNum(long statNum) {
-        this.statNum = statNum;
+    public void setStatCode(long statCode) {
+        this.statCode = statCode;
     }
 
     public String getStatType() {
@@ -40,11 +40,11 @@ public class EquipmentEffectDTO {
         this.statType = statType;
     }
 
-    public long getStatValue() {
-        return statValue;
+    public long getValue() {
+        return value;
     }
 
-    public void setStatValue(long statValue) {
-        this.statValue = statValue;
+    public void setValue(long value) {
+        this.value = value;
     }
 }

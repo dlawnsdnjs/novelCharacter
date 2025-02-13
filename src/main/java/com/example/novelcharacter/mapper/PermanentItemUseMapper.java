@@ -1,7 +1,5 @@
 package com.example.novelcharacter.mapper;
 
-import com.example.novelcharacter.dto.PermanentItemEffectDTO;
-import com.example.novelcharacter.dto.PermanentItemUseDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

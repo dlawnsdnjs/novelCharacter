@@ -1,8 +1,5 @@
 package com.example.novelcharacter.mapper;
 
-import com.example.novelcharacter.dto.AchievementDTO;
-import com.example.novelcharacter.dto.AchievementEffectDTO;
-import com.example.novelcharacter.dto.AchievementUnlockDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
