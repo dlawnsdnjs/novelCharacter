@@ -5,7 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
-    public UserDTO getUser(String site, String userId);
+    public UserDTO getUser(String userId);
+    public boolean isExistByUserId(String userId);
     public void insertUser(UserDTO userDTO);
     public void updateUser(UserDTO userDTO);
     public void deleteUser(UserDTO userDTO);

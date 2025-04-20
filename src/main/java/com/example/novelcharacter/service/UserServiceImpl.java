@@ -15,8 +15,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserById(String site, String userId) {
-        return userMapper.getUser(site, userId);
+    public UserDTO getUserById(String userId) {
+        return userMapper.getUser(userId);
+    }
+
+    @Override
+    public boolean isExistByUserId(String userId) {
+        return userMapper.isExistByUserId(userId);
     }
 
     @Override

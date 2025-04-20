@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.novelcharacter.mapper.UsereMapper">
-    <select id="selectUserById" resultType="UserDTO">
-        SELECT * FROM User WHERE site = #{site} AND userId = #{userId};
+<mapper namespace="com.example.novelcharacter.mapper.UserMapper">
+    <select id="getUser" resultType="UserDTO">
+        SELECT * FROM User WHERE userId = #{userId};
+    </select>
+
+    <select id="existsByUserId" resultType="boolean" parameterType="string">
+        SELECT EXISTS(SELECT * FROM User WHERE userId = #{userId});
     </select>
 
     <insert id="insertUser" useGeneratedKeys="true" parameterType="UserDTO">
-        INSERT INTO Title (site, userId, userName) VALUES (#{site}, #{userId}, #{userName});
+        INSERT INTO User (userId, username, email, password, role) VALUES (#{userId},
+        <choose>
+            <when test="username != null and username !=''">#{username}</when>
+            <otherwise>'user'</otherwise>
+        </choose>, #{email}, #{password}, #{role});
     </insert>
 
     <update id="updateUser" parameterType="UserDTO">
-        UPDATE Title SET userName = #{userName} WHERE site = #{site} AND userId = #{userId};
+        UPDATE User SET username = #{username} WHERE userId = #{userId};
     </update>
 
     <delete id="deleteUser" parameterType="UserDTO">
-        DELETE FROM User WHERE site = #{site} AND userId = #{userId};
+        DELETE FROM User WHERE userId = #{userId};
     </delete>
 </mapper>

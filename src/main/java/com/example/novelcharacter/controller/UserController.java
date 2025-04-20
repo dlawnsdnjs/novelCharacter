@@ -1,7 +1,9 @@
 package com.example.novelcharacter.controller;
 
+import com.example.novelcharacter.dto.JoinDTO;
 import com.example.novelcharacter.dto.UserDTO;
-import com.example.novelcharacter.service.UserServiceImpl;
+import com.example.novelcharacter.service.JoinService;
+import com.example.novelcharacter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,35 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
+    private final JoinService joinService;
 
     @Autowired
-    public UserController(UserServiceImpl userService) {
+    public UserController(UserService userService, JoinService joinService) {
         this.userService = userService;
-    }
-
-    @GetMapping("/")
-    public String index(@CookieValue(value="userId", defaultValue = "None")String userId, Model model){
-        model.addAttribute("userId", userId);
-        
-        return "index";
-    }
-
-    @PostMapping("/login")
-    public String login(String site, String userId, Model model){
-        UserDTO userDTO = userService.getUserById(site, userId);
-        if(userDTO == null){
-            return "redirect:/";
-        }
-        model.addAttribute("userDTO", userDTO);
-
-        return "login";
+        this.joinService = joinService;
     }
 
 
-    @PostMapping("/signUp")
-    public String signUp(String userId, Model model){
-        model.addAttribute("userId", userId);
-        return "signUp";
+    @PostMapping("/join")
+    public String joinProcess(JoinDTO joinDTO){
+        System.out.println(joinDTO.getName());
+        joinService.joinProcess(joinDTO);
+
+        return "ok";
     }
 }
