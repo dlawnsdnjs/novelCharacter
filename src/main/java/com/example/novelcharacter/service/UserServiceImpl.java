@@ -2,17 +2,20 @@ package com.example.novelcharacter.service;
 
 import com.example.novelcharacter.dto.UserDTO;
 import com.example.novelcharacter.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+
+@Slf4j
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
-    @Autowired
-    public UserServiceImpl(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
+
 
     @Override
     public UserDTO getUserById(String userId) {
@@ -21,7 +24,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isExistByUserId(String userId) {
-        return userMapper.isExistByUserId(userId);
+        UserDTO userDTO = getUserById(userId);
+        return userDTO != null;
+    }
+
+    @Override
+    public UserDTO findByEmail(String email) {
+        return userMapper.findByEmail(email);
+    }
+
+    @Override
+    public boolean isExistByEmail(String email) {
+        UserDTO userDTO = findByEmail(email);
+        return userDTO != null;
     }
 
     @Override
@@ -38,4 +53,5 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(UserDTO userDTO){
         userMapper.deleteUser(userDTO);
     }
+
 }

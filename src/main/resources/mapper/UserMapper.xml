@@ -5,16 +5,16 @@
         SELECT * FROM User WHERE userId = #{userId};
     </select>
 
-    <select id="existsByUserId" resultType="boolean" parameterType="string">
-        SELECT EXISTS(SELECT * FROM User WHERE userId = #{userId});
+    <select id = "findByEmail" resultType="UserDTO">
+        SELECT * FROM User WHERE email = #{email};
     </select>
 
     <insert id="insertUser" useGeneratedKeys="true" parameterType="UserDTO">
-        INSERT INTO User (userId, username, email, password, role) VALUES (#{userId},
+        INSERT INTO User (userId, username, email, password, role, lastLoginDate) VALUES (#{userId},
         <choose>
             <when test="username != null and username !=''">#{username}</when>
             <otherwise>'user'</otherwise>
-        </choose>, #{email}, #{password}, #{role});
+        </choose>, #{email}, #{password}, #{role}, #{lastLoginDate});
     </insert>
 
     <update id="updateUser" parameterType="UserDTO">

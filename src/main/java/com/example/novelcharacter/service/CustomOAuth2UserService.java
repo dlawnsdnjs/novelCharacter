@@ -7,6 +7,8 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final UserServiceImpl userService;
@@ -34,7 +36,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         String username = oAuth2Response.getProviderId()+"@"+oAuth2Response.getProvider()+".com";
+        String email = oAuth2Response.getEmail();
         System.out.println("username: "+username);
+        System.out.println("email: "+email);
         UserDTO existData = userService.getUserById(username);
 
         if(existData == null){
@@ -43,7 +47,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user.setUsername(oAuth2Response.getName());
             user.setPassword("OAuthUser");
             user.setRole("ROLE_USER");
-
+            user.setEmail(email);
+            user.setLastLoginDate(LocalDate.now());
             userService.insertUser(user);
 
             return new CustomOAuth2User(user);
