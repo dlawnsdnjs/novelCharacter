@@ -14,6 +14,7 @@ import javax.mail.MessagingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Random;
 
 @Slf4j
@@ -33,35 +34,40 @@ public class JoinServiceImpl implements JoinService {
 
 
     @Override
-    public void joinProcess(JoinDTO joinDTO) {
-        String username = joinDTO.getName();
+    public void joinProcess(JoinDTO joinDTO) { // ResponseEntity로 각 분기별 코드 보내야 할 듯
+        System.out.println("joinDTO: " + joinDTO.toString());
+        String username = joinDTO.getId();
         String password = joinDTO.getPassword();
         String email = joinDTO.getEmail();
+        String authCode = joinDTO.getAuthCode();
 
-        boolean isExist = userService.isExistByUserId(username);
-
-        if (isExist) {
-            return;
-        }
-
-        isExist = userService.isExistByEmail(email);
-        if (isExist) {
-            return;
-        }
-        String authComplete = redisService.getValues(email);
+        this.checkDuplicatedId(username);
+        this.checkDuplicatedEmail(email);
+        String authComplete = redisService.getValues(authCode);
+        System.out.println("authComplete: "+authComplete);
 
         if(authComplete.equals("ok")) {
             UserDTO data = new UserDTO();
+            data.setUserId(username);
             data.setUsername(username);
             data.setPassword(bCryptPasswordEncoder.encode(password));
             data.setEmail(email);
             data.setRole("ROLE_USER");
-
+            data.setLastLoginDate(LocalDate.now());
 
             userService.insertUser(data);
+            System.out.println("가입 성공: "+data);
         }
 
         return;
+    }
+
+    public void checkDuplicatedId(String userId){
+        boolean user = userService.isExistByUserId(userId);
+        if (user) {
+            log.debug("JoinServiceImpl.checkDuplicatedId exception occur email: {}", userId);
+            throw new RuntimeException("JoinServiceImpl.checkDuplicatedId exception occur email: " + userId);
+        }
     }
 
 
@@ -76,19 +82,19 @@ public class JoinServiceImpl implements JoinService {
     }
 
     private void checkDuplicatedEmail(String email) {
-        UserDTO user = userService.findByEmail(email);
-        if (user != null) {
-            log.debug("MemberServiceImpl.checkDuplicatedEmail exception occur email: {}", email);
-            throw new RuntimeException("MemberServiceImpl.checkDuplicatedEmail exception occur email: " + email);
+        boolean user = userService.isExistByEmail(email);
+        if (user) {
+            log.debug("JoinServiceImpl.checkDuplicatedEmail exception occur email: {}", email);
+            throw new RuntimeException("JoinServiceImpl.checkDuplicatedEmail exception occur email: " + email);
         }
     }
 
     private String createCode() {
-        int lenth = 6;
+        int length = 6;
         try {
             Random random = SecureRandom.getInstanceStrong();
             StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < lenth; i++) {
+            for (int i = 0; i < length; i++) {
                 builder.append(random.nextInt(10));
             }
             return builder.toString();
@@ -102,10 +108,15 @@ public class JoinServiceImpl implements JoinService {
         this.checkDuplicatedEmail(email);
         String redisAuthCode = redisService.getValues(AUTH_CODE_PREFIX + email);
 
+        System.out.println(email);
+        System.out.println(authCode);
+
         boolean result = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
+        System.out.println("result: "+ result);
 
         if(result){
-            redisService.setValues(email, "ok", Duration.ofMillis(authCodeExpirationMillis));
+            redisService.setValues(authCode+email, "ok", Duration.ofMillis(authCodeExpirationMillis));
+            System.out.println("authEmail: "+ authCode+email);
         }
 
         return result;
