@@ -1,12 +1,9 @@
 package com.example.novelcharacter.service;
 
-import com.example.novelcharacter.dto.StatValueDTO;
 import com.example.novelcharacter.dto.StatDTO;
 import com.example.novelcharacter.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class StatServiceImpl implements StatService{

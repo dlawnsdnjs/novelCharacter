@@ -3,12 +3,9 @@
 <mapper namespace="com.example.novelcharacter.mapper.StatMapper">
     <insert id="insertStat" parameterType="StatDTO">
         INSERT INTO Stat (
-        statCode,
         statName
         ) VALUES (
-        #{novelNum},
-        #{characterName},
-        #{characterJob}
+        #{statName}
         );
     </insert>
 

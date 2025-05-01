@@ -7,7 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class StatDTO {
-    private long statCode;
-    private String statName;
+public class JoinDTO {
+    private String id;
+    private String email;
+    private String password;
+    private String authCode;
 }

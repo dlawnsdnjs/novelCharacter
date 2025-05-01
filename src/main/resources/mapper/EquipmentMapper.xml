@@ -9,6 +9,10 @@
         SELECT * FROM Equipment WHERE novelNum = #{novelNum};
     </select>
 
+    <select id="selectEquipmentsByName" resultType="EquipmentDTO">
+        SELECT * FROM Equipment WHERE equipmentName = #{equipmentName};
+    </select>
+
     <insert id="insertEquipment" useGeneratedKeys="true" parameterType="EquipmentDTO">
         INSERT INTO Equipment (novelNum, equipmentName, wearingArea) VALUES (#{novelNum}, #{equipmentName}, #{wearingArea});
     </insert>

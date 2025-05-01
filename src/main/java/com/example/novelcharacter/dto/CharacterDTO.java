@@ -1,40 +1,14 @@
 package com.example.novelcharacter.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class CharacterDTO {
     private long novelNum;
     private String characterName;
     private long characterNum;
-
-    @Override
-    public String toString() {
-        return "CharacterDTO{" +
-                "novelNum=" + novelNum +
-                ", characterName='" + characterName + '\'' +
-                ", characterNum='" + characterNum + '\'' +
-                '}';
-    }
-
-    public long getNovelNum() {
-        return novelNum;
-    }
-
-    public void setNovelNum(long novelNum) {
-        this.novelNum = novelNum;
-    }
-
-    public String getCharacterName() {
-        return characterName;
-    }
-
-    public void setCharacterName(String characterName) {
-        this.characterName = characterName;
-    }
-
-    public long getCharacterNum() {
-        return characterNum;
-    }
-
-    public void setCharacterNum(long characterNum) {
-        this.characterNum = characterNum;
-    }
 }

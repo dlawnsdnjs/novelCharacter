@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.novelcharacter.mapper.EpisodeMapper">
     <insert id="insertEpisode" useGeneratedKeys="true" parameterType="EpisodeDTO">
-        INSERT INTO Episode (novelNum, episodeName, episodeSummary) VALUES (#{novelNum}, #{episodeName}, #{episodeSummary});
+        INSERT INTO Episode (novelNum, episodeTitle, episodeSummary) VALUES (#{novelNum}, #{episodeTitle}, #{episodeSummary});
     </insert>
 
     <select id="selectAllEpisode" resultType="EpisodeDTO">
@@ -14,11 +14,11 @@
     </select>
 
     <select id="searchEpisode" resultType="EpisodeDTO">
-        SELECT * FROM Episode WHERE episodeName LIKE CONCAT('%', #{search}, '%');
+        SELECT * FROM Episode WHERE episodeTitle LIKE CONCAT('%', #{search}, '%');
     </select>
 
     <update id="updateEpisode" parameterType="EpisodeDTO">
-        UPDATE Episode SET novelNum = #{novelNum}, episodeName = #{episodeName}, episodeSummary = #{episodeSummary} WHERE episodeNum = #{episodeNum};
+        UPDATE Episode SET novelNum = #{novelNum}, episodeTitle = #{episodeTitle}, episodeSummary = #{episodeSummary} WHERE episodeNum = #{episodeNum};
     </update>
 
     <delete id="deleteEpisode">

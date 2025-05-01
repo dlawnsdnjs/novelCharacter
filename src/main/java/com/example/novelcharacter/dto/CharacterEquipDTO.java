@@ -7,9 +7,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class EquipmentDTO {
-    private long novelNum;
+public class CharacterEquipDTO {
+    private long episodeNum;
+    private long characterNum;
     private long equipmentNum;
-    private String equipmentName;
-    private String info;
 }

@@ -23,7 +23,7 @@ public class NovelController {
     }
 
     @PostMapping("/novel")
-    public String novel(String novelTitle, String writer, Model model){
+    public String novel(String novelTitle, long writer, Model model){
         novelService.insertNovel(novelTitle, writer);
         model.addAttribute("novelList", novelService.selectAllNovel());
         return "novel/novelList";
