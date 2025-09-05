@@ -15,11 +15,14 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
-
+    @Override
+    public UserDTO getUserByUuid(long uuid){
+        return userMapper.getUserByUuid(uuid);
+    }
 
     @Override
     public UserDTO getUserById(String userId) {
-        return userMapper.getUser(userId);
+        return userMapper.getUserById(userId);
     }
 
     @Override

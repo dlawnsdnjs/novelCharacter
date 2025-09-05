@@ -9,7 +9,8 @@ import java.util.List;
 public interface EquipmentMapper {
     public EquipmentDTO selectEquipmentById(long equipmentNum);
     public List<EquipmentDTO> selectEquipmentsById(long novelNum);
-    public EquipmentDTO selectEquipmentByName(String equipmentName);
+    public List<EquipmentDTO> selectEquipmentsPageById(long novelNum, int offset);
+    public EquipmentDTO selectEquipmentByName(String equipmentName, long novelNum);
     public void insertEquipment(EquipmentDTO equipment);
     public void updateEquipment(EquipmentDTO equipment);
     public void deleteEquipment(long equipmentNum);

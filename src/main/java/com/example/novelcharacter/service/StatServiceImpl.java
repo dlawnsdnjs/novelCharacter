@@ -24,6 +24,17 @@ public class StatServiceImpl implements StatService{
     }
 
     @Override
+    public StatDTO selectStat(String statName) {
+        StatDTO statDTO = statMapper.selectStat(statName);
+        if(statDTO == null){
+            statDTO = new StatDTO();
+            statDTO.setStatName(statName);
+            insertStat(statDTO);
+        }
+        return statDTO;
+    }
+
+    @Override
     public void updateStat(StatDTO statDTO) {
         statMapper.updateStat(statDTO);
     }

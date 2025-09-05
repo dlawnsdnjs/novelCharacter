@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.novelcharacter.mapper.UserMapper">
-    <select id="getUser" resultType="UserDTO">
+    <select id="getUserByUuid" resultType="UserDTO">
+        SELECT * FROM User WHERE uuid = #{uuid};
+    </select>
+
+    <select id="getUserById" resultType="UserDTO">
         SELECT * FROM User WHERE userId = #{userId};
     </select>
 

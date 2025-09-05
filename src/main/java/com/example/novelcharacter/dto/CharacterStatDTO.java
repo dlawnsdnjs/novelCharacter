@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CharacterStatDTO {
-    private long episodeNUm;
+    private long episodeNum;
     private long characterNum;
     private long statCode;
     private long value;

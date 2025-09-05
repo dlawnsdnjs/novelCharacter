@@ -9,16 +9,21 @@
         SELECT * FROM Equipment WHERE novelNum = #{novelNum};
     </select>
 
-    <select id="selectEquipmentsByName" resultType="EquipmentDTO">
-        SELECT * FROM Equipment WHERE equipmentName = #{equipmentName};
+    <select id="selectEquipmentsPageById" resultType="EquipmentDTO">
+        SELECT * FROM Equipment WHERE novelNum = #{novelNum}
+        LIMIT 20 OFFSET #{offset};
     </select>
 
-    <insert id="insertEquipment" useGeneratedKeys="true" parameterType="EquipmentDTO">
-        INSERT INTO Equipment (novelNum, equipmentName, wearingArea) VALUES (#{novelNum}, #{equipmentName}, #{wearingArea});
+    <select id="selectEquipmentsByName" resultType="EquipmentDTO">
+        SELECT * FROM Equipment WHERE equipmentName = #{equipmentName} AND novelNum = #{novelNum};
+    </select>
+
+    <insert id="insertEquipment" useGeneratedKeys="true" keyProperty="equipmentNum" parameterType="EquipmentDTO">
+        INSERT INTO Equipment (novelNum, equipmentName, inform) VALUES (#{novelNum}, #{equipmentName}, #{inform});
     </insert>
 
     <update id="updateEquipment" parameterType="EquipmentDTO">
-        UPDATE Equipment SET novelNum = #{novelNum}, equipmentName = #{equipmentName}, wearingArea = #{wearingArea} WHERE equipmentNum = #{equipmentNum};
+        UPDATE Equipment SET novelNum = #{novelNum}, equipmentName = #{equipmentName}, inform = #{inform} WHERE equipmentNum = #{equipmentNum};
     </update>
 
     <delete id="deleteEquipment" parameterType="EquipmentDTO">

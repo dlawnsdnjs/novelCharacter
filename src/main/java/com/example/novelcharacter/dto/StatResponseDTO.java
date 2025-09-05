@@ -7,9 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RefreshDTO {
-    private long id;
-    private long uuid;
-    private String refresh;
-    private String expiration;
+public class StatResponseDTO {
+    private String statName;
+    private long value;
 }

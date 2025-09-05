@@ -26,6 +26,7 @@ public class ReissueServiceImpl implements ReissueService {
 
     @Override
     public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("reissue");
         String refresh = null;
         Cookie[] cookies = request.getCookies();
         for(Cookie cookie : cookies) {
@@ -56,15 +57,15 @@ public class ReissueServiceImpl implements ReissueService {
             //response body
             return new ResponseEntity<>("invalid refresh token", HttpStatus.BAD_REQUEST);
         }
-
+        long uuid = jwtUtil.getUuid(refresh);
         String username = jwtUtil.getUsername(refresh);
         String role = jwtUtil.getRole(refresh);
 
-        String newAccess = jwtUtil.createJwt("access", username, role, 600000L);
-        String newRefresh = jwtUtil.createJwt("refresh", username, role, 86400000L);
+        String newAccess = jwtUtil.createJwt("access", uuid, username, role, 600000L);
+        String newRefresh = jwtUtil.createJwt("refresh", uuid, username, role, 86400000L);
 
         refreshService.deleteByRefresh(refresh);
-        addRefreshEntity(username, newRefresh, 86400000L);
+        addRefreshEntity(uuid, newRefresh, 86400000L);
 
         response.setHeader("access", newAccess);
         response.addCookie(createCookie("refresh", newRefresh));
@@ -83,11 +84,11 @@ public class ReissueServiceImpl implements ReissueService {
         return cookie;
     }
 
-    private void addRefreshEntity(String username, String newRefresh, Long expires) {
+    private void addRefreshEntity(long uuid, String newRefresh, Long expires) {
         Date date = new Date(System.currentTimeMillis() + expires);
 
         RefreshDTO refreshEntity = new RefreshDTO();
-        refreshEntity.setName(username);
+        refreshEntity.setUuid(uuid);
         refreshEntity.setRefresh(newRefresh);
         refreshEntity.setExpiration(date.toString());
 

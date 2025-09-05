@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.novelcharacter.mapper.StatMapper">
-    <insert id="insertStat" parameterType="StatDTO">
+    <insert id="insertStat" useGeneratedKeys="true" keyProperty="statCode" parameterType="StatDTO">
         INSERT INTO Stat (
         statName
         ) VALUES (
@@ -9,8 +9,27 @@
         );
     </insert>
 
+    <insert id="insertStatList" useGeneratedKeys="true" keyProperty="statCode" parameterType="StatDTO">
+        INSERT INTO Stat (statName)
+        VALUES
+            <foreach collection="list" item="statName" separator=",">
+            (#{statName})
+            </foreach>;
+    </insert>
+
+    <select id="selectStatList" resultType="StatDTO">
+        SELECT * FROM Stat WHERE statName IN
+            <foreach item="statName" collection="list" separator="">
+                (#{statName})
+            </foreach>
+    </select>
+
     <select id="selectStat" resultType="StatDTO">
         SELECT * FROM Stat WHERE statCode = #{statCode};
+    </select>
+
+    <select id="selectStatByName" resultType="StatDTO">
+        SELECT * FROM Stat WHERE statName = #{statName};
     </select>
 
     <update id="updateStat" parameterType="StatDTO">

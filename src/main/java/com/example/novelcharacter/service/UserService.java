@@ -5,6 +5,7 @@ import com.example.novelcharacter.dto.UserDTO;
 import javax.mail.MessagingException;
 
 public interface UserService {
+    UserDTO getUserByUuid(long uuid);
     UserDTO getUserById(String userId);
     boolean isExistByUserId(String userId);
     UserDTO findByEmail(String email);

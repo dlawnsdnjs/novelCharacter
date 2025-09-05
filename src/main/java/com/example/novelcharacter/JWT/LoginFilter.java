@@ -51,8 +51,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
 
+        long uuid = customUserDetails.getUuid();
         String username = customUserDetails.getUsername();
-
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
@@ -60,12 +60,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String role = auth.getAuthority();
 
-        String access = jwtUtil.createJwt("access", username, role, 600000L);
-        String refresh = jwtUtil.createJwt("refresh", username, role, 86400000L);
+        String access = jwtUtil.createJwt("access", uuid, username, role, 600000L);
+        String refresh = jwtUtil.createJwt("refresh", uuid, username, role, 86400000L);
         System.out.println("access:"+access);
         System.out.println("refresh:"+refresh);
 
-        addrefreshDTO(username, refresh, 86400000L);
+        addrefreshDTO(uuid, refresh, 86400000L);
 
 
         response.setHeader("access", access);
@@ -93,11 +93,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         return cookie;
     }
 
-    private void addrefreshDTO(String username, String refresh, Long expiredMs) {
+    private void addrefreshDTO(long uuid, String refresh, Long expiredMs) {
         Date date = new Date(System.currentTimeMillis() + expiredMs);
 
         RefreshDTO refreshDTO = new RefreshDTO();
-        refreshDTO.setName(username);
+        refreshDTO.setUuid(uuid);
         refreshDTO.setRefresh(refresh);
         refreshDTO.setExpiration(date.toString());
 

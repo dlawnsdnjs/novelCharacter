@@ -1,7 +1,10 @@
 package com.example.novelcharacter.JWT;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -19,24 +22,47 @@ public class JWTUtil {
         secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 
-    public String getUsername(String token) {
+    public long getUuid(String token) {
+        return Long.parseLong(extractClaims(token).get("uuid", String.class));
+    }
 
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("username", String.class);
+    public String getUsername(String token) {
+        return extractClaims(token).get("username", String.class);
     }
 
     public String getRole(String token) {
-
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
+        return extractClaims(token).get("role", String.class);
     }
 
     public Boolean isExpired(String token) {
-
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
+        try {
+            Date expiration = extractClaims(token).getExpiration();
+            if (expiration.before(new Date())) {
+                throw new JwtException("Expired JWT token");
+            }
+            return expiration.before(new Date());
+        } catch (ExpiredJwtException e) {
+            // 이미 만료된 토큰
+            throw new JwtException("Expired JWT token");
+        }
     }
 
-    public String createJwt(String username, String role, Long expiredMs) {
+    private Claims extractClaims(String token) {
+        try {
+            return Jwts.parser()
+                    .verifyWith(secretKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims(); // 만료되었지만 claims는 가져오기
+        }
+    }
+
+    public String createJwt(long uuid, String username, String role, Long expiredMs) {
 
         return Jwts.builder()
+                .claim("uuid", String.valueOf(uuid))
                 .claim("username", username)
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis()))
@@ -45,10 +71,11 @@ public class JWTUtil {
                 .compact();
     }
 
-    public String createJwt(String categori, String username, String role, Long expiredMs) {
+    public String createJwt(String category, long uuid, String username, String role, Long expiredMs) {
 
         return Jwts.builder()
-                .claim("category", categori)
+                .claim("category", category)
+                .claim("uuid", String.valueOf(uuid))
                 .claim("username", username)
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis()))
@@ -58,6 +85,6 @@ public class JWTUtil {
     }
 
     public String getCategory(String token) {
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("category", String.class);
+        return extractClaims(token).get("category", String.class);
     }
 }

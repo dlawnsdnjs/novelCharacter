@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.novelcharacter.mapper.CharacterStatMapper">
-    <select id="selectCharactersByEpisode">
-        SELECT * FROM CharacterStat WHERE episodeNum = #{episodeNum} GROUP BY characterNum;
-    </select>
 
     <select id="selectCharacterStatsByIds" resultType="CharacterStatDTO">
-        SELECT * FROM CharacterStat WHERE episodeNum = #{episodeNum} AND characterNum = #{characterNum};
+        SELECT * FROM characterStat WHERE episodeNum = #{episodeNum} AND characterNum = #{characterNum};
     </select>
 
-    <select id="selectCharacterStatByIds" resultType="CharacterStatDTO">
-        SELECT * FROM CharacterStat WHERE novelNum = #{novelNum} AND episodeNum = #{episodeNum} AND characterNum = #{characterNum} AND statCOde = #{statCode};
+    <select id="selectCharacterStatsResponse" parameterType="EpisodeCharacterDTO" resultType="StatResponseDTO">
+        SELECT statName, `value` FROM CharacterStat c, Stat s WHERE episodeNum = #{episodeNum} AND characterNum = #{characterNum} AND c.statCode = s.statCode;
     </select>
+
 
     <insert id="insertCharacterStat" parameterType="CharacterStatDTO">
         INSERT INTO CharacterStat (episodeNum, characterNum, statCode, value) VALUES (#{episodeNum}, #{characterNum}, #{statCode}, #{value});
@@ -23,5 +21,9 @@
 
     <delete id="deleteCharacterStat" parameterType="CharacterStatDTO">
         DELETE FROM CharacterStat WHERE episodeNum = #{episodeNum} AND characterNum = #{characterNum} AND statCode = #{statCode};
+    </delete>
+
+    <delete id="deleteCharacterStatByEpisode">
+        DELETE FROM CharacterStat WHERE  episodeNum = #{episodeNum} AND characterNum = #{characterNum};
     </delete>
 </mapper>
