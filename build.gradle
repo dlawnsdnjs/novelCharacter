@@ -53,9 +53,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-// https://mvnrepository.com/artifact/hikari-cp/hikari-cp
-
-// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 

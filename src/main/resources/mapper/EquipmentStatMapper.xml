@@ -5,12 +5,33 @@
         SELECT * FROM EquipmentStat WHERE equipmentNum = #{equipmentNum} AND StatCode = #{StatCode} AND statType = #{statType};
     </select>
 
-    <select id="selectEquipmentStatsByIds" resultType="EquipmentStatDTO">
-        SELECT * FROM EquipmentStat WHERE equipmentNum = #{equipmentNum};
+    <select id="selectEquipmentStatsByIds" resultType="EquipmentStatInfoWithNumDTO">
+        SELECT es.equipmentNum, s.statName, es.statType, es.value
+        FROM EquipmentStat es, Stat s
+        WHERE
+            equipmentNum IN
+            <foreach collection="list" item="equipmentNum" separator=",">
+                (#{equipmentNum})
+            </foreach>
+        AND es.statCode = s.statCode;
+    </select>
+
+    <select id="selectEquipmentStatsById" resultType="EquipmentStatInfoDTO">
+        SELECT statName, statType, value
+        FROM EquipmentStat es, Stat s
+        WHERE es.equipmentNum = #{equipmentNum} AND es.statCode = s.statCode;
     </select>
 
     <insert id="insertEquipmentStat" parameterType="EquipmentStatDTO">
         INSERT INTO EquipmentStat (equipmentNum, StatCode, statType, value) VALUES (#{equipmentNum}, #{StatCode}, #{statType}, #{value});
+    </insert>
+
+    <insert id="insertEquipmentStatList" parameterType="EquipmentStatDTO">
+        INSERT INTO equipmentstat (equipmentNum, statCode, statType, value)
+        VALUES
+            <foreach collection="stats" item="statInfo" separator=",">
+                (#{equipmentNum}, #{statInfo.stat.statCode}, #{statInfo.type}, #{statInfo.stat.value})
+            </foreach>
     </insert>
 
     <update id="updateEquipmentStat" parameterType="EquipmentStatDTO">

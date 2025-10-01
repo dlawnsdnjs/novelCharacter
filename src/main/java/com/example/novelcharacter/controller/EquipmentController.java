@@ -35,12 +35,21 @@ class EquipmentController {
         return equipmentService.selectEquipmentsByNovel(novelNum, uuid);
     }
 
+    @PostMapping("/getEquipmentData")
+    public EquipmentDataDTO getEquipmentData(@RequestHeader String access, @RequestBody Map<String, Long> payload) throws NoPermissionException {
+        long uuid = jwtUtil.getUuid(access);
+        long equipmentNum = payload.get("equipmentNum");
+
+        return equipmentService.selectEquipmentData(uuid, equipmentNum);
+    }
+
     @PostMapping("/addEquipment")
-    public EquipmentDTO addEquipment(@RequestHeader String access,@Valid @RequestBody EquipmentDataDTO equipmentDataDTO) throws NoPermissionException {
+    public void addEquipment(@RequestHeader String access,@Valid @RequestBody EquipmentDataDTO equipmentDataDTO) throws NoPermissionException {
         long uuid = jwtUtil.getUuid(access);
         System.out.println("equipment:"+equipmentDataDTO);
 
-        return equipmentService.insertEquipment(equipmentDataDTO, uuid);
+        equipmentService.insertEquipment(equipmentDataDTO, uuid);
+
     }
 
     @PostMapping("/updateEquipment")

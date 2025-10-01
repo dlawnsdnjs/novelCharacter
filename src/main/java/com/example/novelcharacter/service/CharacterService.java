@@ -21,17 +21,20 @@ public interface CharacterService {
 
     //CharacterStatMapper 관련
     public List<CharacterDTO> selectCharactersByEpisode(long episodeNum, long uuid) throws NoPermissionException;
-    public void insertEpisodeCharacter(EpisodeCharacterDTO episodeCharacterDTO, long uuid) throws NoPermissionException;
+    public void insertEpisodeCharacter(long episodeNum, long characterNum);
     public void deleteEpisodeCharacter(EpisodeCharacterDTO episodeCharacterDTO, long uuid) throws NoPermissionException;
-    public List<StatResponseDTO> selectCharacterStatsByIds(EpisodeCharacterDTO episodeCharacterDTO);
+    public void deleteEpisodeCharacter(EpisodeCharacterDTO episodeCharacterDTO);
+    public List<StatInfoDTO> selectCharacterStatsByIds(EpisodeCharacterDTO episodeCharacterDTO);
     public void insertCharacterStat(CharacterStatDTO characterStatDTO, long uuid) throws NoPermissionException;
+    public void insertCharacterStatList(long episodeNum, long characterNum, List<StatInfoDTO> statInfoDTOS);
     public void updateCharacterStat(CharacterStatDTO characterStatDTO, long uuid) throws NoPermissionException;
     public void deleteCharacterStat(CharacterStatDTO characterStatDTO, long uuid) throws NoPermissionException;
 
     //CharacterEquipMapper 관련
     public CharacterEquipDTO selectCharacterEquipByIds(EpisodeCharacterDTO episodeCharacterDTO, long equipmentNum, long uuid) throws NoPermissionException; // 필요 없어 보임 그냥 Equipment에서 장비 정보 받아오는게 맞음
-    public List<CharacterEquipDTO> selectCharacterEquipsByIds(EpisodeCharacterDTO episodeCharacterDTO, long uuid) throws NoPermissionException; // 아마 이걸로 장비번호를 받아서 Equipment에서 받아오는 식으로 작동
+    public List<CharacterEquipDTO> selectCharacterEquipsByIds(EpisodeCharacterDTO episodeCharacterDTO); // 아마 이걸로 장비번호를 받아서 Equipment에서 받아오는 식으로 작동
     public void insertCharacterEquip(CharacterEquipDTO characterEquipDTO, long uuid) throws NoPermissionException;
+    public void insertCharacterEquipList(long episodeNum, long characterNum, List<Long> equipments);
     public void deleteCharacterEquip(CharacterEquipDTO characterEquipDTO, long uuid) throws NoPermissionException;
 }
 

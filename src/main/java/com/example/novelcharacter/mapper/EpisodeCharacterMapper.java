@@ -11,5 +11,5 @@ public interface EpisodeCharacterMapper {
     public List<EpisodeCharacterDTO> selectEpisodeCharacterByEpisode(long episodeNum);
     public List<CharacterDTO> selectCharactersByEpisode(long episodeNum);
     public void insertEpisodeCharacter(EpisodeCharacterDTO episodeCharacterDTO);
-    public void deleteEpisodeCharacterByEpisode(EpisodeCharacterDTO episodeCharacterDTO);
+    public void deleteEpisodeCharacter(EpisodeCharacterDTO episodeCharacterDTO);
 }

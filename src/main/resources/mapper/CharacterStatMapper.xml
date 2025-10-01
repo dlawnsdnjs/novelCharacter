@@ -6,13 +6,21 @@
         SELECT * FROM characterStat WHERE episodeNum = #{episodeNum} AND characterNum = #{characterNum};
     </select>
 
-    <select id="selectCharacterStatsResponse" parameterType="EpisodeCharacterDTO" resultType="StatResponseDTO">
+    <select id="selectCharacterStatsResponse" parameterType="EpisodeCharacterDTO" resultType="StatInfoDTO">
         SELECT statName, `value` FROM CharacterStat c, Stat s WHERE episodeNum = #{episodeNum} AND characterNum = #{characterNum} AND c.statCode = s.statCode;
     </select>
 
 
     <insert id="insertCharacterStat" parameterType="CharacterStatDTO">
         INSERT INTO CharacterStat (episodeNum, characterNum, statCode, value) VALUES (#{episodeNum}, #{characterNum}, #{statCode}, #{value});
+    </insert>
+
+    <insert id="insertCharacterStatList">
+        INSERT INTO CharacterStat (episodeNum, characterNum, statCode, value)
+        VALUES
+            <foreach collection="stats" item="stat" separator=",">
+                (#{episodeNum}, #{characterNum}, #{stat.statCode}, #{stat.value})
+            </foreach>
     </insert>
 
     <update id="updateCharacterStat" parameterType="CharacterStatDTO">

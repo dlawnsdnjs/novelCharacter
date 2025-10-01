@@ -8,6 +8,7 @@ import java.util.List;
 @Mapper
 public interface StatMapper {
     public void insertStat(StatDTO statDTO);
+    public void insertStatList(List<StatDTO> statDTOList);
     public List<StatDTO> selectStatList(List<String> statName);
     public StatDTO selectStat(long statCode);
     public StatDTO selectStat(String statName);

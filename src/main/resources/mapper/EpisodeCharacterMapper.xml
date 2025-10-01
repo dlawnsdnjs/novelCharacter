@@ -10,10 +10,10 @@
     </select>
 
     <insert id="insertEpisodeCharacter" parameterType="EpisodeCharacterDTO">
-        INSERT INTO EpisodeCharacter (episodeNum, characterNum) VALUES (#{episodeNum}, #{characterNum});
+        INSERT IGNORE INTO EpisodeCharacter (episodeNum, characterNum) VALUES (#{episodeNum}, #{characterNum});
     </insert>
 
     <delete id="deleteEpisodeCharacter" parameterType="EpisodeCharacterDTO">
-        DELETE FROM EpisodeCharacter WHERE episodeNum = #{episodeNum} AND characterNum = #{characterNUM};
+        DELETE FROM EpisodeCharacter WHERE episodeNum = #{episodeNum} AND characterNum = #{characterNum};
     </delete>
 </mapper>

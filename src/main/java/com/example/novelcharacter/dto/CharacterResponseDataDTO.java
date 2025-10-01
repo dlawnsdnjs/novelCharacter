@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class CharacterResponseDataDTO {
     private CharacterDTO character;
-    private List<StatResponseDTO> stats;
+    private List<StatInfoDTO> stats;
     private List<EquipmentDataDTO> equipment;
-    private List<StatResponseDTO> finalStats;
+    private List<StatInfoDTO> finalStats;
 }

@@ -53,9 +53,7 @@ public class NovelServiceImpl implements NovelService{
 
     @Override
     public void checkOwner(long novelNum, long uuid) throws NoPermissionException {
-        if(novelMapper.checkOwner(novelNum, uuid) == 1){
-        }
-        else{
+        if(novelMapper.checkOwner(novelNum, uuid) != 1){
             throw new NoPermissionException("해당 유저의 소설이 아닙니다.");
         }
     }

@@ -12,16 +12,18 @@
     <insert id="insertStatList" useGeneratedKeys="true" keyProperty="statCode" parameterType="StatDTO">
         INSERT INTO Stat (statName)
         VALUES
-            <foreach collection="list" item="statName" separator=",">
-            (#{statName})
-            </foreach>;
+            <foreach collection="list" item="stat" separator=",">
+            (#{stat.statName})
+            </foreach>
     </insert>
 
     <select id="selectStatList" resultType="StatDTO">
-        SELECT * FROM Stat WHERE statName IN
-            <foreach item="statName" collection="list" separator="">
-                (#{statName})
-            </foreach>
+        SELECT *
+        FROM Stat
+        WHERE statName IN
+        <foreach item="statName" collection="list" open="(" separator="," close=")">
+            #{statName}
+        </foreach>
     </select>
 
     <select id="selectStat" resultType="StatDTO">

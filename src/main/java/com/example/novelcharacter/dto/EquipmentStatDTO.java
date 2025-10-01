@@ -10,6 +10,6 @@ import lombok.ToString;
 public class EquipmentStatDTO {
     private long equipmentNum;
     private long statCode;
-    private String statType;
+    private int statType; // 실제 테이블은 int로 돼있음 enum으로 대체하던지 해야할듯
     private long value;
 }

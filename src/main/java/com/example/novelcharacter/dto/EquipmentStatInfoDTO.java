@@ -4,12 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
 @Getter
 @Setter
 @ToString
-public class CharacterEquipResponseDTO {
-    private String equipmentName;
-    private List<StatInfoDTO> stats;
+public class EquipmentStatInfoDTO {
+    private String statName;
+    private long value;
+    private int type;
 }

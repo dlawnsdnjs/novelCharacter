@@ -17,16 +17,12 @@ import java.util.Map;
 
 @RestController
 public class CharacterController {
-    CharacterService characterService;
-    EpisodeService episodeService;
-    NovelService novelService;
-    JWTUtil jwtUtil;
+    private final CharacterService characterService;
+    private final JWTUtil jwtUtil;
 
     @Autowired
-    public CharacterController(CharacterService characterService, NovelService novelService, EpisodeService episodeService, JWTUtil jwtUtil){
+    public CharacterController(CharacterService characterService, JWTUtil jwtUtil){
         this.characterService = characterService;
-        this.novelService = novelService;
-        this.episodeService = episodeService;
         this.jwtUtil = jwtUtil;
     }
 

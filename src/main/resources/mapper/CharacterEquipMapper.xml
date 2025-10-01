@@ -14,6 +14,14 @@
         INSERT INTO CharacterEquip (episodeNum, characterNum, equipmentNum) VALUES (#{episodeNum}, #{characterNum}, #{equipmentNum});
     </insert>
 
+    <insert id="insertCharacterEquipList" >
+        INSERT INTO CharacterEquip (episodeNum, characterNum, equipmentNum)
+        VALUES
+            <foreach collection="equipments" item="equipment" separator=",">
+                (#{episodeNum}, #{characterNum}, #{equipment})
+            </foreach>
+    </insert>
+
     <delete id="deleteCharacterEquip" parameterType="CharacterEquipDTO">
         DELETE FROM CharacterEquip WHERE episodeNum = #{episodeNum} AND characterNum = #{characterNum} AND equipmentNum = #{equipmentNum};
     </delete>

@@ -1,6 +1,9 @@
 package com.example.novelcharacter.mapper;
 
 import com.example.novelcharacter.dto.EquipmentStatDTO;
+import com.example.novelcharacter.dto.EquipmentStatInfoDTO;
+import com.example.novelcharacter.dto.EquipmentStatInfoWithNumDTO;
+import com.example.novelcharacter.dto.EquipmentStatRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -8,8 +11,10 @@ import java.util.List;
 @Mapper
 public interface EquipmentStatMapper {
     public EquipmentStatDTO selectEquipmentStatByIds(long equipmentNum, long statCode, String statType);
-    public List<EquipmentStatDTO> selectEquipmentStatsByIds(long equipmentNum);
+    public List<EquipmentStatInfoWithNumDTO> selectEquipmentStatsByIds(List<Long> equipmentNum);
+    public List<EquipmentStatInfoDTO> selectEquipmentStatsById(long equipmentNum);
     public void insertEquipmentStat(EquipmentStatDTO equipmentStatDTO);
+    public void insertEquipmentStatList(long equipmentNum, List<EquipmentStatRequestDTO> stats);
     public void updateEquipmentStat(EquipmentStatDTO equipmentStatDTO);
     public void deleteEquipmentStat(EquipmentStatDTO equipmentStatDTO);
 }

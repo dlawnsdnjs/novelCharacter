@@ -8,6 +8,6 @@ import java.util.List;
 public class EquipmentDataDTO {
     private EquipmentDTO equipment;
 
-    private List<EquipmentStatResponseDTO> equipmentStats;
+    private List<EquipmentStatInfoDTO> equipmentStats;
 }
 

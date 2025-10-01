@@ -5,6 +5,15 @@
         SELECT * FROM Equipment WHERE equipmentNum = #{equipmentNum};
     </select>
 
+    <select id="selectEquipmentsByIds" resultType="EquipmentDTO">
+        SELECT * FROM Equipment
+        WHERE
+            equipmentNum IN
+            <foreach collection="list" item="equipmentNum" separator=",">
+                (#{equipmentNum})
+            </foreach>
+    </select>
+
     <select id="selectEquipmentsById" resultType="EquipmentDTO">
         SELECT * FROM Equipment WHERE novelNum = #{novelNum};
     </select>
@@ -16,6 +25,15 @@
 
     <select id="selectEquipmentsByName" resultType="EquipmentDTO">
         SELECT * FROM Equipment WHERE equipmentName = #{equipmentName} AND novelNum = #{novelNum};
+    </select>
+
+    <select id="checkEquipmentOwner" resultType="int">
+        SELECT IFNULL((
+                          SELECT 1
+                          FROM Novel n, Equipment e
+                          WHERE e.equipmentNum=#{equipmentNum} AND n.novelNum = e.novelNum AND n.uuid = #{uuid}
+                          LIMIT 1
+                      ), 0)
     </select>
 
     <insert id="insertEquipment" useGeneratedKeys="true" keyProperty="equipmentNum" parameterType="EquipmentDTO">
