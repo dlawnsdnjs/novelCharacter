@@ -3,7 +3,6 @@ package com.example.novelcharacter.controller;
 import com.example.novelcharacter.dto.JoinDTO;
 import com.example.novelcharacter.service.JoinService;
 import lombok.Data;
-import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

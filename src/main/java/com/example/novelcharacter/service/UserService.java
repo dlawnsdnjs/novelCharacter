@@ -1,17 +1,60 @@
 package com.example.novelcharacter.service;
 
 import com.example.novelcharacter.dto.UserDTO;
+import com.example.novelcharacter.mapper.UserMapper;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 
-public interface UserService {
-    UserDTO getUserByUuid(long uuid);
-    UserDTO getUserById(String userId);
-    boolean isExistByUserId(String userId);
-    UserDTO findByEmail(String email);
-    boolean isExistByEmail(String email);
-    void insertUser(UserDTO userDTO);
-    void updateUser(UserDTO userDTO);
-    void deleteUser(UserDTO userDTO);
+@Slf4j
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class UserService{
+    private final UserMapper userMapper;
+
+    
+    public UserDTO getUserByUuid(long uuid){
+        return userMapper.getUserByUuid(uuid);
+    }
+
+    
+    public UserDTO getUserById(String userId) {
+        return userMapper.getUserById(userId);
+    }
+
+    
+    public boolean isExistByUserId(String userId) {
+        UserDTO userDTO = getUserById(userId);
+        return userDTO != null;
+    }
+
+    
+    public UserDTO findByEmail(String email) {
+        return userMapper.findByEmail(email);
+    }
+
+    
+    public boolean isExistByEmail(String email) {
+        UserDTO userDTO = findByEmail(email);
+        return userDTO != null;
+    }
+
+    
+    public void insertUser(UserDTO userDTO){
+        userMapper.insertUser(userDTO);
+    }
+
+    
+    public void updateUser(UserDTO userDTO){
+        userMapper.updateUser(userDTO);
+    }
+
+    
+    public void deleteUser(UserDTO userDTO){
+        userMapper.deleteUser(userDTO);
+    }
 
 }

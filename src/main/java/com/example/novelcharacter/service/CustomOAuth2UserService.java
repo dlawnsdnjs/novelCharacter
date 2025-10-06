@@ -14,9 +14,9 @@ import java.time.LocalDate;
 
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
-    public CustomOAuth2UserService(UserServiceImpl userService){
+    public CustomOAuth2UserService(UserService userService){
         this.userService = userService;
     }
 

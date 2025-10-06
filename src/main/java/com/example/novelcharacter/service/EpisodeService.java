@@ -1,18 +1,85 @@
 package com.example.novelcharacter.service;
 
 import com.example.novelcharacter.dto.EpisodeDTO;
+import com.example.novelcharacter.mapper.EpisodeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.naming.NoPermissionException;
 import java.util.List;
 
-public interface EpisodeService {
-    public EpisodeDTO insertEpisode(EpisodeDTO episodeDTO, long uuid) throws NoPermissionException;
-    public List<EpisodeDTO> selectAllEpisode(long novelNum, long uuid) throws NoPermissionException;
-    public List<EpisodeDTO> selectEpisodePage(long novelNum, int offset, long uuid) throws NoPermissionException;
-//    public void rebalanceOrderIndex(long novelNum);
-//    public EpisodeDTO selectEpisodeById(long episodeNum, long uuid);
-    public int checkEpisodeOwner(long episodeNum, long uuid) throws NoPermissionException;
-    public List<EpisodeDTO> searchEpisode(String search, long novelNum, long uuid) throws NoPermissionException;
-    public void updateEpisode(EpisodeDTO episodeDTO, long uuid) throws NoPermissionException;
-    public void deleteEpisode(long episodeNum, long uuid) throws NoPermissionException;
+@Service
+public class EpisodeService{
+    private final EpisodeMapper episodeMapper;
+    private final NovelService novelService;
+
+    @Autowired
+    public EpisodeService(EpisodeMapper episodeMapper, NovelService novelService) {
+        this.episodeMapper = episodeMapper;
+        this.novelService = novelService;
+    }
+
+    
+    public EpisodeDTO insertEpisode(EpisodeDTO episodeDTO, long uuid) throws NoPermissionException {
+        novelService.checkOwner(episodeDTO.getNovelNum(), uuid);
+        episodeMapper.insertEpisode(episodeDTO);
+        episodeMapper.updateOrderIndexNull(episodeDTO);
+        return episodeDTO;
+    }
+
+    
+    public List<EpisodeDTO> selectAllEpisode(long novelNum, long uuid) throws NoPermissionException {
+        novelService.checkOwner(novelNum, uuid);
+
+        return episodeMapper.selectAllEpisode(novelNum);
+    }
+
+    
+    public List<EpisodeDTO> selectEpisodePage(long novelNum, int offset, long uuid) throws NoPermissionException {
+        novelService.checkOwner(novelNum, uuid);
+
+        return episodeMapper.selectEpisodePage(novelNum, offset);
+    }
+
+    // 리밸런싱 작업은 프론트측에서 작업하고 백엔드에서는 업데이트만 동작하는게 이상적
+//    
+//    public void rebalanceOrderIndex(long novelNum) {
+//        episodeMapper.rebalanceOrderIndex(novelNum);
+//    }
+
+//    
+//    public EpisodeDTO selectEpisodeById(long episodeNum, long uuid) {
+////        novelService.checkOwner(novelNum, uuid);
+//
+//        return episodeMapper.selectEpisodeById(episodeNum);
+//    }
+
+
+    
+    public int checkEpisodeOwner(long episodeNum, long uuid) throws NoPermissionException {
+        if(episodeMapper.checkEpisodeOwner(episodeNum,uuid) == 1){
+            return 1;
+        }
+        else{
+            throw new NoPermissionException("사용자가 작성한 회차가 아닙니다.");
+        }
+    }
+
+    
+    public List<EpisodeDTO> searchEpisode(String search, long novelNum, long uuid) throws NoPermissionException {
+        novelService.checkOwner(novelNum, uuid);
+        return episodeMapper.searchEpisode(search);
+    }
+
+    
+    public void updateEpisode(EpisodeDTO episodeDTO, long uuid) throws NoPermissionException {
+        novelService.checkOwner(episodeDTO.getNovelNum(), uuid);
+        episodeMapper.updateEpisode(episodeDTO);
+    }
+
+    
+    public void deleteEpisode(long episodeNum, long uuid) throws NoPermissionException {
+        checkEpisodeOwner(episodeNum, uuid);
+        episodeMapper.deleteEpisode(episodeNum);
+    }
 }

@@ -9,7 +9,6 @@ import lombok.ToString;
 @ToString
 public class EquipmentStatInfoWithNumDTO {
     private long equipmentNum;
-//    private StatInfoDTO stat;
     private String statName;
     private long value;
     private int type;

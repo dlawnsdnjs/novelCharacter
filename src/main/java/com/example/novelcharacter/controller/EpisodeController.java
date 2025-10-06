@@ -3,7 +3,6 @@ package com.example.novelcharacter.controller;
 import com.example.novelcharacter.JWT.JWTUtil;
 import com.example.novelcharacter.dto.EpisodeDTO;
 import com.example.novelcharacter.service.EpisodeService;
-import com.example.novelcharacter.service.NovelService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

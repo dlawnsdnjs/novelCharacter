@@ -3,6 +3,7 @@ package com.example.novelcharacter.controller;
 import com.example.novelcharacter.JWT.JWTUtil;
 import com.example.novelcharacter.dto.EquipmentDTO;
 import com.example.novelcharacter.dto.EquipmentDataDTO;
+import com.example.novelcharacter.service.EquipmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.novelcharacter.service.EquipmentService;
 
 import javax.naming.NoPermissionException;
 import java.util.List;

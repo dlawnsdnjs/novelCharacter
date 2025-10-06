@@ -1,12 +1,10 @@
 package com.example.novelcharacter.controller;
 
 import com.example.novelcharacter.JWT.JWTUtil;
-import com.example.novelcharacter.dto.FavoriteDTO;
 import com.example.novelcharacter.dto.NovelDTO;
 import com.example.novelcharacter.dto.NovelWithFavoriteDTO;
 import com.example.novelcharacter.service.FavoriteService;
 import com.example.novelcharacter.service.NovelService;
-import com.example.novelcharacter.service.NovelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +17,11 @@ import java.util.Map;
 @RestController
 public class NovelController {
     private final NovelService novelService;
-    private final FavoriteService favoriteService;
     private final JWTUtil jwtUtil;
 
     @Autowired
-    public NovelController(NovelServiceImpl novelService, FavoriteService favoriteService, JWTUtil jwtUtil){
+    public NovelController(NovelService novelService, JWTUtil jwtUtil){
         this.novelService = novelService;
-        this.favoriteService = favoriteService;
         this.jwtUtil = jwtUtil;
     }
 
@@ -62,19 +58,6 @@ public class NovelController {
         }
 
     }
-
-//    @PostMapping("/novel")
-//    public String novel(String novelTitle, long writer,  Model model){
-//        novelService.insertNovel(novelTitle, writer);
-//        model.addAttribute("novelList", novelService.selectAllNovel());
-//        return "novel/novelList";
-//    }
-
-//    @PostMapping("/novelList")
-//    public String novelList(String search, Model model){
-//        model.addAttribute("novelList", novelService.searchNovel(search));
-//        return "novel/novelList";
-//    }
 
     @GetMapping("/novelList")
     public List<NovelWithFavoriteDTO> novelList(

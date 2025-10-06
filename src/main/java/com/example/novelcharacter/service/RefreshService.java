@@ -1,13 +1,29 @@
 package com.example.novelcharacter.service;
 
 import com.example.novelcharacter.dto.RefreshDTO;
-import jakarta.transaction.Transactional;
+import com.example.novelcharacter.mapper.RefreshMapper;
+import org.springframework.stereotype.Service;
 
-public interface RefreshService {
-    void addRefresh(RefreshDTO refreshDTO);
+@Service
+public class RefreshService{
+    private final RefreshMapper refreshMapper;
 
-    Boolean existsByRefresh(String refresh);
+    public RefreshService(RefreshMapper refreshMapper) {
+        this.refreshMapper = refreshMapper;
+    }
 
-    @Transactional
-    void deleteByRefresh(String refresh);
+    
+    public void addRefresh(RefreshDTO refreshDTO) {
+        refreshMapper.insertRefresh(refreshDTO);
+    }
+
+    
+    public Boolean existsByRefresh(String refresh) {
+        return refreshMapper.existsByRefresh(refresh);
+    }
+
+    
+    public void deleteByRefresh(String refresh) {
+        refreshMapper.deleteByRefresh(refresh);
+    }
 }

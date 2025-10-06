@@ -10,6 +10,8 @@
         SELECT statName, `value` FROM CharacterStat c, Stat s WHERE episodeNum = #{episodeNum} AND characterNum = #{characterNum} AND c.statCode = s.statCode;
     </select>
 
+    
+
 
     <insert id="insertCharacterStat" parameterType="CharacterStatDTO">
         INSERT INTO CharacterStat (episodeNum, characterNum, statCode, value) VALUES (#{episodeNum}, #{characterNum}, #{statCode}, #{value});
