@@ -5,7 +5,7 @@ import com.example.novelcharacter.dto.EquipmentStatInfoDTO;
 import com.example.novelcharacter.dto.StatInfoDTO;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public class StatCalculator {
             List<StatInfoDTO> baseStats,
             List<EquipmentDataDTO> equipmentList
     ) {
-        Map<String, Long> finalStats = new HashMap<>();
+        Map<String, Long> finalStats = new LinkedHashMap<>();
         for (StatInfoDTO stat : baseStats) {
             finalStats.put(stat.getStatName(), stat.getValue());
         }

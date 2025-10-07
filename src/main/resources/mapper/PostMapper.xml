@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.novelcharacter.mapper.PostMapper">
+    <insert id="insertPost" useGeneratedKeys="true" keyProperty="postId" parameterType="PostDTO">
+        INSERT INTO post (boardId, postTitle, content, uuid, writeDate)
+        VALUES (#{boardId}, #{postTitle}, #{content}, #{uuid}, #{writeDate})
+    </insert>
+
+    <select id="selectPostsByBoard" resultType="PostDataDTO">
+        SELECT postId, postTitle, userName FROM post p, user u WHERE boardId = #{boardId} AND p.uuid = u.uuid
+        LIMIT 20 OFFSET #{page};
+    </select>
+
+    <update id="updatePost" parameterType="PostDTO">
+        UPDATE Post SET boardId = #{boardId}, postTitle = #{postTitle}, content=#{content} WHERE postId = #{postId};
+    </update>
+
+    <delete id="deletePost">
+        DELETE FROM post WHERE postId=#{postId};
+    </delete>
+</mapper>
