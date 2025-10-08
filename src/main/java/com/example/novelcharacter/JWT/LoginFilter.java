@@ -2,6 +2,7 @@ package com.example.novelcharacter.JWT;
 
 import com.example.novelcharacter.dto.CustomUserDetails;
 import com.example.novelcharacter.dto.RefreshDTO;
+import com.example.novelcharacter.service.RefreshService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final RefreshService refreshService;
 
 
     @Override
@@ -65,7 +67,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         System.out.println("access:"+access);
         System.out.println("refresh:"+refresh);
 
-        addrefreshDTO(uuid, refresh, 86400000L);
+        addRefreshDTO(uuid, refresh, 86400000L);
 
 
         response.setHeader("access", access);
@@ -93,7 +95,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         return cookie;
     }
 
-    private void addrefreshDTO(long uuid, String refresh, Long expiredMs) {
+    private void addRefreshDTO(long uuid, String refresh, Long expiredMs) {
         Date date = new Date(System.currentTimeMillis() + expiredMs);
 
         RefreshDTO refreshDTO = new RefreshDTO();
@@ -101,6 +103,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         refreshDTO.setRefresh(refresh);
         refreshDTO.setExpiration(date.toString());
 
-//        refreshRepository.save(refreshDTO);
+        refreshService.addRefresh(refreshDTO);
     }
 }

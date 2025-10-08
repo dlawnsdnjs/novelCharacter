@@ -7,8 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface BoardCategoryMapper {
-    public void insertBoardCategory(BoardCategoryDTO boardCategoryDTO);
     public List<BoardCategoryDTO> selectAllBoardCategory();
-    public void updateBoardCategory(BoardCategoryDTO boardCategoryDTO);
-    public void deleteBoardCategory(long boardId);
 }

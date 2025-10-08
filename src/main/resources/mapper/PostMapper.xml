@@ -7,8 +7,16 @@
     </insert>
 
     <select id="selectPostsByBoard" resultType="PostDataDTO">
-        SELECT postId, postTitle, userName FROM post p, user u WHERE boardId = #{boardId} AND p.uuid = u.uuid
+        SELECT p.postId, p.postTitle, u.userName
+        FROM post p
+                 JOIN user u ON p.uuid = u.uuid
+        WHERE p.boardId = #{boardId}
+        ORDER BY p.postId DESC
         LIMIT 20 OFFSET #{page};
+    </select>
+
+    <select id="selectPostById" resultType="PostDTO">
+        SELECT * FROM post WHERE postId=#{postId};
     </select>
 
     <update id="updatePost" parameterType="PostDTO">
