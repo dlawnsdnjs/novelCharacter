@@ -26,6 +26,10 @@ public class PostService {
         if(postDTO.getBoardId() == 0 && !role.equals("ROLE_ADMIN")){
             throw new NoPermissionException("관리자 권한이 필요합니다.");
         }
+        if(postDTO.getUuid() != uuid){
+            postDTO.setUuid(uuid);
+            System.out.println("사용자와 작성자 불일치");
+        }
         postMapper.insertPost(postDTO);
     }
 
@@ -50,7 +54,7 @@ public class PostService {
         }
         postMapper.deletePost(postDTO.getPostId());
     }
-    
+
     public List<BoardCategoryDTO> selectAllBoardCategory() {
         return boardCategoryMapper.selectAllBoardCategory();
     }
