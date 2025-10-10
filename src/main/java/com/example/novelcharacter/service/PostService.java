@@ -3,6 +3,7 @@ package com.example.novelcharacter.service;
 import com.example.novelcharacter.dto.BoardCategoryDTO;
 import com.example.novelcharacter.dto.PostDTO;
 import com.example.novelcharacter.dto.PostDataDTO;
+import com.example.novelcharacter.dto.PostResponseDTO;
 import com.example.novelcharacter.mapper.BoardCategoryMapper;
 import com.example.novelcharacter.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +27,21 @@ public class PostService {
         if(postDTO.getBoardId() == 0 && !role.equals("ROLE_ADMIN")){
             throw new NoPermissionException("관리자 권한이 필요합니다.");
         }
-        if(postDTO.getUuid() != uuid){
-            postDTO.setUuid(uuid);
-            System.out.println("사용자와 작성자 불일치");
-        }
+        postDTO.setUuid(uuid);
+        System.out.println(postDTO);
+
         postMapper.insertPost(postDTO);
     }
 
     public List<PostDataDTO> selectPostsByBoard(long boardId, int page) {
-        return postMapper.selectPostsByBoard(boardId, page);
+        return postMapper.selectPostsByBoard(boardId, (page-1)*20);
     }
 
-    public PostDTO selectPostById(long postId) {
+    public List<PostDataDTO> selectPostsByCategory(long uuid, long boardId, int page) {
+        return postMapper.selectPostsByUserId(uuid, boardId, (page-1)*20);
+    }
+
+    public PostResponseDTO selectPostById(long postId) {
         return postMapper.selectPostById(postId);
     }
 
