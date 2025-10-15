@@ -15,13 +15,40 @@
         LIMIT 20 OFFSET #{page};
     </select>
 
-    <select id="selectPostsByUserId" resultType="PostDataDTO">
+    <select id="selectPostCountByBoard">
+        SELECT count(*) FROM post WHERE boardId = #{boardId};
+    </select>
+
+    <select id="selectPostsByUuid" resultType="PostDataDTO">
         SELECT p.postId, p.postTitle, u.userName
         FROM post p
                  JOIN user u ON p.uuid = u.uuid
         WHERE p.boardId = #{boardId} AND p.uuid = #{uuid}
         ORDER BY p.postId DESC
         LIMIT 20 OFFSET #{page};
+    </select>
+
+    <select id="selectPostsByUserName" resultType="PostDataDTO">
+        SELECT p.postId, p.postTitle, u.userName
+        FROM post p
+                 JOIN user u ON p.uuid = u.uuid
+        WHERE p.boardId = #{boardId} AND u.userName LIKE CONCAT('%', #{userName}, '%')
+        ORDER BY p.postId DESC
+        LIMIT 20 OFFSET #{page};
+    </select>
+
+    <select id="selectPostCountByUuid">
+    SELECT count(*)
+    FROM post p
+    JOIN user u ON p.uuid = u.uuid
+    WHERE p.boardId = #{boardId} AND p.uuid = #{uuid}
+    </select>
+
+    <select id="selectPostCountByUserName">
+        SELECT count(*)
+        FROM post p
+                 JOIN user u ON p.uuid = u.uuid
+        WHERE p.boardId = #{boardId} AND u.userName = #{userName}
     </select>
 
     <select id="selectPostById" resultType="PostResponseDTO">

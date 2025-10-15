@@ -5,7 +5,10 @@ import com.example.novelcharacter.mapper.UserMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.bytecode.DuplicateMemberException;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 
 @Slf4j
@@ -25,6 +28,9 @@ public class UserService{
         return userMapper.getUserById(userId);
     }
 
+    public UserDTO getUserByName(String userName) {
+        return userMapper.getUserByName(userName);
+    }
     
     public boolean isExistByUserId(String userId) {
         UserDTO userDTO = getUserById(userId);
@@ -50,6 +56,20 @@ public class UserService{
     
     public void updateUser(UserDTO userDTO){
         userMapper.updateUser(userDTO);
+    }
+
+    public void updateUserName(String userName, long uuid) throws Exception {
+        UserDTO userDTO = getUserByUuid(uuid);
+        if(getUserByName(userName) != null){
+            throw new DuplicateMemberException("중복된 이름입니다");
+        }
+        userDTO.setUsername(userName);
+        updateUser(userDTO);
+    }
+
+    public void updateLastLoginTime(UserDTO userDTO){
+        userDTO.setLastLoginDate(LocalDate.now());
+        updateUser(userDTO);
     }
 
     

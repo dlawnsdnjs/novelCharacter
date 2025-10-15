@@ -7,6 +7,7 @@ import com.example.novelcharacter.JWT.LoginFilter;
 import com.example.novelcharacter.OAuth2.CustomSuccessHandler;
 import com.example.novelcharacter.service.CustomOAuth2UserService;
 import com.example.novelcharacter.service.RefreshService;
+import com.example.novelcharacter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,14 +30,17 @@ public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomSuccessHandler customSuccessHandler;
     private final RefreshService refreshService;
+    private final UserService userService;
     private final JWTUtil jwtUtil;
 
     @Autowired
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, CustomOAuth2UserService customOAuth2UserService, CustomSuccessHandler customSuccessHandler,RefreshService refreshService, JWTUtil jwtUtil) {
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, CustomOAuth2UserService customOAuth2UserService, CustomSuccessHandler customSuccessHandler
+            ,RefreshService refreshService, UserService userService, JWTUtil jwtUtil) {
         this.authenticationConfiguration = authenticationConfiguration;
         this.customOAuth2UserService = customOAuth2UserService;
         this.customSuccessHandler = customSuccessHandler;
         this.refreshService = refreshService;
+        this.userService = userService;
         this.jwtUtil = jwtUtil;
     }
 
@@ -60,7 +64,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/post/**","/api/**", "/login/**","/reissue").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshService), LogoutFilter.class)
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, this.passwordEncoder(), refreshService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshService, userService), UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(new JWTFilter(jwtUtil), OAuth2LoginAuthenticationFilter.class)
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig

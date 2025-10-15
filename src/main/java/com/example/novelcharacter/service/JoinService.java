@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Random;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -49,13 +51,23 @@ public class JoinService {
         if(authComplete.equals("ok")) {
             UserDTO data = new UserDTO();
             data.setUserId(username);
-            data.setUsername(username);
             data.setPassword(bCryptPasswordEncoder.encode(password));
             data.setEmail(email);
             data.setRole("ROLE_USER");
             data.setLastLoginDate(LocalDate.now());
 
-            userService.insertUser(data);
+            boolean saved = false;
+            while (!saved) {
+                try {
+                    String randomNickname = "User_" + UUID.randomUUID().toString().substring(0, 6);
+                    data.setUsername(randomNickname);
+                    userService.insertUser(data);
+                    saved = true;
+                } catch (DuplicateKeyException e) {
+                    // username UNIQUE 제약 위반 시 재시도
+                }
+            }
+
             System.out.println("가입 성공: "+data);
         }
 

@@ -1,9 +1,6 @@
 package com.example.novelcharacter.service;
 
-import com.example.novelcharacter.dto.BoardCategoryDTO;
-import com.example.novelcharacter.dto.PostDTO;
-import com.example.novelcharacter.dto.PostDataDTO;
-import com.example.novelcharacter.dto.PostResponseDTO;
+import com.example.novelcharacter.dto.*;
 import com.example.novelcharacter.mapper.BoardCategoryMapper;
 import com.example.novelcharacter.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +30,25 @@ public class PostService {
         postMapper.insertPost(postDTO);
     }
 
-    public List<PostDataDTO> selectPostsByBoard(long boardId, int page) {
-        return postMapper.selectPostsByBoard(boardId, (page-1)*20);
+    public PostPageResponseDTO selectPostsByBoard(long boardId, int page) {
+        PostPageResponseDTO postPageResponseDTO = new PostPageResponseDTO();
+        postPageResponseDTO.setData(postMapper.selectPostsByBoard(boardId, (page-1)*20));
+        postPageResponseDTO.setTotalCount(postMapper.selectPostCountByBoard(boardId));
+        return postPageResponseDTO;
     }
 
-    public List<PostDataDTO> selectPostsByCategory(long uuid, long boardId, int page) {
-        return postMapper.selectPostsByUserId(uuid, boardId, (page-1)*20);
+    public PostPageResponseDTO selectPostsByUuid(long uuid, long boardId, int page) {
+        PostPageResponseDTO postPageResponseDTO = new PostPageResponseDTO();
+        postPageResponseDTO.setData(postMapper.selectPostsByUuid(uuid, boardId, (page-1)*20));
+        postPageResponseDTO.setTotalCount(postMapper.selectPostCountByUuid(boardId, uuid));
+        return postPageResponseDTO;
+    }
+
+    public PostPageResponseDTO selectPostsByUsername(String userName, long boardId, int page) {
+        PostPageResponseDTO postPageResponseDTO = new PostPageResponseDTO();
+        postPageResponseDTO.setData(postMapper.selectPostsByUserName(userName, boardId, (page-1)*20));
+        postPageResponseDTO.setTotalCount(postMapper.selectPostCountByUserName(boardId, userName));
+        return postPageResponseDTO;
     }
 
     public PostResponseDTO selectPostById(long postId) {

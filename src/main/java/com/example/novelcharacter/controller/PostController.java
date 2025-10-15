@@ -1,10 +1,7 @@
 package com.example.novelcharacter.controller;
 
 import com.example.novelcharacter.JWT.JWTUtil;
-import com.example.novelcharacter.dto.BoardCategoryDTO;
-import com.example.novelcharacter.dto.PostDTO;
-import com.example.novelcharacter.dto.PostDataDTO;
-import com.example.novelcharacter.dto.PostResponseDTO;
+import com.example.novelcharacter.dto.*;
 import com.example.novelcharacter.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +26,22 @@ public class PostController {
     }
 
     @GetMapping("/post/boardId={boardId}/page={page}")
-    public List<PostDataDTO> selectPostsByBoardId(@PathVariable("boardId") long boardId, @PathVariable("page") int page) {
-        List<PostDataDTO> result = postService.selectPostsByBoard(boardId, page);
+    public PostPageResponseDTO selectPostsByBoardId(@PathVariable("boardId") long boardId, @PathVariable("page") int page) {
+        PostPageResponseDTO result = postService.selectPostsByBoard(boardId, page);
         System.out.println("board");
         System.out.println(result);
         return result;
+    }
+
+    @GetMapping("/post/boardId={boardId}/userName={userName}/page={page}")
+    public PostPageResponseDTO selectPostsByUserName(@PathVariable("boardId") long boardId, @PathVariable String userName, @PathVariable("page") int page) {
+        return postService.selectPostsByUsername(userName, boardId, page);
+    }
+
+    @GetMapping("/post/boardId={boardId}/myPost/page={page}")
+    public PostPageResponseDTO selectMyPostsByBoardId(@RequestHeader("access") String access, @PathVariable("boardId") long boardId, @PathVariable("page") int page) {
+        long uuid = jwtUtil.getUuid(access);
+        return postService.selectPostsByUuid(uuid, boardId, page);
     }
 
     @GetMapping("/post/postId={postId}")

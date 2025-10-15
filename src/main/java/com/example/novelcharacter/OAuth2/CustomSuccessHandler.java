@@ -2,6 +2,8 @@ package com.example.novelcharacter.OAuth2;
 
 import com.example.novelcharacter.JWT.JWTUtil;
 import com.example.novelcharacter.dto.CustomOAuth2User;
+import com.example.novelcharacter.dto.UserDTO;
+import com.example.novelcharacter.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,15 +14,18 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Iterator;
 
 @Component
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JWTUtil jwtUtil;
+    private final UserService userService;
 
-    public CustomSuccessHandler(JWTUtil jwtUtil){
+    public CustomSuccessHandler(JWTUtil jwtUtil, UserService userService){
         this.jwtUtil = jwtUtil;
+        this.userService = userService;
     }
 
 
@@ -32,6 +37,8 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         long userId = customUserDetails.getUuid();
         String username = customUserDetails.getName();
+        UserDTO userDTO = userService.getUserByUuid(userId);
+        userService.updateLastLoginTime(userDTO);
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();

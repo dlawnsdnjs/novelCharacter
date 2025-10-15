@@ -4,6 +4,7 @@ import com.example.novelcharacter.dto.*;
 import com.example.novelcharacter.dto.OAuth.GoogleResponse;
 import com.example.novelcharacter.dto.OAuth.NaverResponse;
 import com.example.novelcharacter.dto.OAuth.OAuth2Response;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
@@ -44,24 +46,34 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         System.out.println("email: "+email);
         UserDTO existData = userService.getUserById(username);
 
+
         if(existData == null){
-            UserDTO user = new UserDTO();
-            user.setUserId(username);
-            user.setUsername(oAuth2Response.getName());
-            user.setPassword("OAuthUser");
-            user.setRole("ROLE_USER");
-            user.setEmail(email);
-            user.setLastLoginDate(LocalDate.now());
-            userService.insertUser(user);
-
-            return new CustomOAuth2User(user);
+            existData = registerNewUser(oAuth2Response.getProvider(), oAuth2Response.getProviderId(), email);
         }
-        else{
-            existData.setUsername(oAuth2Response.getName());
+        return new CustomOAuth2User(existData);
+    }
 
-            userService.updateUser(existData);
+    private UserDTO registerNewUser(String provider, String providerId, String email) {
+        boolean saved = false;
+        UserDTO newUser = new UserDTO();
 
-            return new CustomOAuth2User(existData);
+        while (!saved) {
+            try {
+                String randomNickname = "User_" + UUID.randomUUID().toString().substring(0, 6);
+
+                newUser.setUserId(providerId+"@"+provider+".com");
+                newUser.setUsername(randomNickname);
+                newUser.setPassword("OAuthUser");
+                newUser.setRole("ROLE_USER");
+                newUser.setEmail(email);
+                newUser.setLastLoginDate(LocalDate.now());
+                userService.insertUser(newUser);
+                saved = true;
+            } catch (DataIntegrityViolationException e) {
+                // UNIQUE(username) 충돌 시 재시도
+            }
         }
+
+        return newUser;
     }
 }

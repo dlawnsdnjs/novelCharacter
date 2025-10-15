@@ -9,6 +9,10 @@
         SELECT * FROM User WHERE userId = #{userId};
     </select>
 
+    <select id="getUserByName" resultType="UserDTO">
+        SELECT * FROM user WHERE userName = #{userName};
+    </select>
+
     <select id = "findByEmail" resultType="UserDTO">
         SELECT * FROM User WHERE email = #{email};
     </select>

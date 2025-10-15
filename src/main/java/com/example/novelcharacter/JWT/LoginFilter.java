@@ -2,7 +2,9 @@ package com.example.novelcharacter.JWT;
 
 import com.example.novelcharacter.dto.CustomUserDetails;
 import com.example.novelcharacter.dto.RefreshDTO;
+import com.example.novelcharacter.dto.UserDTO;
 import com.example.novelcharacter.service.RefreshService;
+import com.example.novelcharacter.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -26,8 +29,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RefreshService refreshService;
+    private final UserService userService;
 
 
     @Override
@@ -37,7 +40,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String username = obtainUsername(request);
         String password = obtainPassword(request);
         System.out.println(password);
-//        password = bCryptPasswordEncoder.encode(password);
         System.out.println(username+ " : " + password);
 
         //스프링 시큐리티에서 username과 password를 검증하기 위해서는 token에 담아야 함
@@ -55,6 +57,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         long uuid = customUserDetails.getUuid();
         String username = customUserDetails.getUsername();
+        UserDTO userDTO = userService.getUserByUuid(uuid);
+        userService.updateLastLoginTime(userDTO);
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
