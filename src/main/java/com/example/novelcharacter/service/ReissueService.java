@@ -2,6 +2,7 @@ package com.example.novelcharacter.service;
 
 import com.example.novelcharacter.JWT.JWTUtil;
 import com.example.novelcharacter.dto.RefreshDTO;
+import com.example.novelcharacter.dto.UserDTO;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,6 +37,7 @@ public class ReissueService {
 
     private final JWTUtil jwtUtil;
     private final RefreshService refreshService;
+    private final UserService userService;
 
     /**
      * {@link ReissueService} 생성자.
@@ -44,9 +46,10 @@ public class ReissueService {
      * @param refreshService Refresh Token 데이터 관리 서비스
      */
     @Autowired
-    public ReissueService(JWTUtil jwtUtil, RefreshService refreshService) {
+    public ReissueService(JWTUtil jwtUtil, RefreshService refreshService, UserService userService) {
         this.jwtUtil = jwtUtil;
         this.refreshService = refreshService;
+        this.userService = userService;
     }
 
     /**
@@ -106,8 +109,9 @@ public class ReissueService {
 
         // 토큰 정보 추출
         long uuid = jwtUtil.getUuid(refresh);
-        String username = jwtUtil.getUsername(refresh);
-        String role = jwtUtil.getRole(refresh);
+        UserDTO user = userService.getUserByUuid(uuid);
+        String username = user.getUsername();
+        String role = user.getRole();
 
         // 새로운 토큰 발급
         String newAccess = jwtUtil.createJwt("access", uuid, username, role, 600000L);     // 10분

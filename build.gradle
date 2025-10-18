@@ -6,7 +6,9 @@ plugins {
 }
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
+
+bootJar.archiveBaseName = 'Novel Log'
 
 java {
 }
@@ -61,6 +63,4 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-kotlin {
-    jvmToolchain(17)
-}
+

@@ -3,10 +3,7 @@ package com.example.novelcharacter.controller;
 import com.example.novelcharacter.JWT.JWTUtil;
 import com.example.novelcharacter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -44,10 +41,10 @@ public class UserController {
      * @param body   새로운 사용자 이름을 포함한 요청 본문 (예: {"username": "newName"})
      * @throws Exception 이름이 중복되거나 변경 권한이 없을 경우 발생
      */
-    @PostMapping("/userUpdate")
+    @PatchMapping("/userUpdate")
     public void userUpdate(@RequestHeader("access") String access, @RequestBody Map<String, String> body) throws Exception {
         long uuid = jwtUtil.getUuid(access);
-        String userName = body.get("username");
+        String userName = body.get("userName");
         userService.updateUserName(userName, uuid);
     }
 }

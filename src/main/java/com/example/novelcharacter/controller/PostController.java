@@ -90,7 +90,7 @@ public class PostController {
      * @param page    페이지 번호
      * @return 사용자가 작성한 게시글 목록 ({@link PostPageResponseDTO})
      */
-    @GetMapping("/post/boardId={boardId}/myPost/page={page}")
+    @GetMapping("/myPost/boardId={boardId}/page={page}")
     public PostPageResponseDTO selectMyPostsByBoardId(@RequestHeader("access") String access,
                                                       @PathVariable("boardId") long boardId,
                                                       @PathVariable("page") int page) {
@@ -148,7 +148,7 @@ public class PostController {
     @PostMapping("/postDelete")
     public void deletePost(@RequestHeader("access") String access,
                            @RequestBody PostDTO postDTO) throws NoPermissionException {
-        long uuid = jwtUtil.getUuid(access);
-        postService.deletePost(postDTO, uuid);
+        String userName = jwtUtil.getUsername(access);
+        postService.deletePost(postDTO, userName);
     }
 }
