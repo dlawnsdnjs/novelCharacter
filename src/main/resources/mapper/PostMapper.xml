@@ -56,7 +56,7 @@
     </select>
 
     <update id="updatePost" parameterType="PostDTO">
-        UPDATE Post SET boardId = #{boardId}, postTitle = #{postTitle}, content=#{content} WHERE postId = #{postId};
+        UPDATE Post SET postTitle = #{postTitle}, content=#{content} WHERE postId = #{postId};
     </update>
 
     <delete id="deletePost">

@@ -26,8 +26,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        System.out.println("Here: " + oAuth2User);
-
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         OAuth2Response oAuth2Response = null;
         if(registrationId.equals("naver")){
@@ -42,8 +40,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         String username = oAuth2Response.getProviderId()+"@"+oAuth2Response.getProvider()+".com";
         String email = oAuth2Response.getEmail();
-        System.out.println("username: "+username);
-        System.out.println("email: "+email);
         UserDTO existData = userService.getUserById(username);
 
 

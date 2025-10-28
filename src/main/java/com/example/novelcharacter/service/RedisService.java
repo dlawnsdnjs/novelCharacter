@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
  * <ul>
  *   <li>단순 Key-Value 저장 → {@link #setValues(String, String)}</li>
  *   <li>TTL이 설정된 Key-Value 저장 → {@link #setValues(String, String, Duration)}</li>
- *   <li>Hash 자료구조 저장 및 조회 → {@link #setHashOps(String, Map)}, {@link #getHashOps(String, String)}</li>
  * </ul>
  */
 @Slf4j
@@ -79,56 +78,9 @@ public class RedisService {
     }
 
     /**
-     * 특정 키에 대한 만료 시간을 설정합니다.
-     *
-     * @param key     Redis 키
-     * @param timeout 만료 시간 (밀리초 단위)
-     */
-    public void expireValues(String key, int timeout) {
-        redisTemplate.expire(key, timeout, TimeUnit.MILLISECONDS);
-    }
-
-    /**
-     * Redis의 Hash 자료구조에 여러 필드를 한 번에 저장합니다.
-     *
-     * @param key  Redis 키 (Hash 이름)
-     * @param data 저장할 필드-값 쌍을 포함한 {@link Map}
-     */
-    public void setHashOps(String key, Map<String, String> data) {
-        HashOperations<String, Object, Object> values = redisTemplate.opsForHash();
-        values.putAll(key, data);
-    }
-
-    /**
-     * Redis의 Hash에서 특정 필드 값을 조회합니다.
-     *
-     * @param key     Redis 키 (Hash 이름)
-     * @param hashKey 조회할 필드 이름
-     * @return 필드 값이 존재하면 문자열 값, 존재하지 않으면 빈 문자열("")
-     */
-    @Transactional(readOnly = true)
-    public String getHashOps(String key, String hashKey) {
-        HashOperations<String, Object, Object> values = redisTemplate.opsForHash();
-        return Boolean.TRUE.equals(values.hasKey(key, hashKey))
-                ? (String) redisTemplate.opsForHash().get(key, hashKey)
-                : "";
-    }
-
-    /**
-     * Redis의 Hash에서 특정 필드를 삭제합니다.
-     *
-     * @param key     Redis 키 (Hash 이름)
-     * @param hashKey 삭제할 필드 이름
-     */
-    public void deleteHashOps(String key, String hashKey) {
-        HashOperations<String, Object, Object> values = redisTemplate.opsForHash();
-        values.delete(key, hashKey);
-    }
-
-    /**
      * Redis 값 존재 여부를 확인합니다.
      *
-     * @param value {@link #getValues(String)} 또는 {@link #getHashOps(String, String)}의 반환 값
+     * @param value {@link #getValues(String)}의 반환 값
      * @return 값이 "false"가 아니면 {@code true}, 그렇지 않으면 {@code false}
      */
     public boolean checkExistsValue(String value) {

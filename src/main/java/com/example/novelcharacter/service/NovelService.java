@@ -146,11 +146,13 @@ public class NovelService {
     /**
      * 소설을 삭제합니다.
      * <p>
-     * 삭제 시 소유자 검증은 호출자가 직접 수행해야 합니다.
+     * 삭제 전에 {@link #checkOwner(long, long)}를 호출하여 권한을 검증합니다.
      *
      * @param novelNum 삭제할 소설 번호
+     * @param uuid 사용자 uuid
      */
-    public void deleteNovel(long novelNum) {
+    public void deleteNovel(long novelNum, long uuid) throws NoPermissionException {
+        checkOwner(novelNum, uuid);
         novelMapper.deleteNovel(novelNum);
     }
 }

@@ -72,7 +72,6 @@ public class JoinService {
      * @throws RuntimeException 아이디 또는 이메일이 중복된 경우
      */
     public void joinProcess(JoinDTO joinDTO) {
-        System.out.println("joinDTO: " + joinDTO.toString());
         String username = joinDTO.getId();
         String password = joinDTO.getPassword();
         String email = joinDTO.getEmail();
@@ -84,7 +83,6 @@ public class JoinService {
 
         // Redis에서 인증 완료 여부 확인
         String authComplete = redisService.getValues(authCode);
-        System.out.println("authComplete: " + authComplete);
 
         // 인증 완료 시 회원가입 처리
         if ("ok".equals(authComplete)) {
@@ -107,7 +105,6 @@ public class JoinService {
                 }
             }
 
-            System.out.println("가입 성공: " + data);
         }
     }
 
@@ -201,16 +198,11 @@ public class JoinService {
         this.checkDuplicatedEmail(email);
         String redisAuthCode = redisService.getValues(AUTH_CODE_PREFIX + email);
 
-        System.out.println(email);
-        System.out.println(authCode);
-
         boolean result = redisService.checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
-        System.out.println("result: " + result);
 
         if (result) {
             // 인증 완료 상태 저장
             redisService.setValues(authCode + email, "ok", Duration.ofMillis(authCodeExpirationMillis));
-            System.out.println("authEmail: " + authCode + email);
         }
 
         return result;

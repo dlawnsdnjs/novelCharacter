@@ -72,11 +72,14 @@ public class ReissueService {
      * @return 발급 성공 시 200 OK, 실패 시 400 BAD_REQUEST 상태의 {@link ResponseEntity}
      */
     public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("reissue");
         String refresh = null;
 
         // 요청 쿠키에서 refresh token 찾기
         Cookie[] cookies = request.getCookies();
+
+        if (cookies == null) {
+            return new ResponseEntity<>("no cookies", HttpStatus.BAD_REQUEST);
+        }
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("refresh")) {
                 refresh = cookie.getValue();

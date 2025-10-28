@@ -132,7 +132,7 @@ public class PostService {
      * </p>
      *
      * @param postDTO 삭제할 게시글 정보
-     * @param uuid    요청자 고유 식별자
+     * @param userName    요청자 고유 식별자
      * @throws NoPermissionException 작성자가 아닌 사용자가 삭제하려 할 때 발생
      */
     public void deletePost(PostDTO postDTO, String userName) throws NoPermissionException {

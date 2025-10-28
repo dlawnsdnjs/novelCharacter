@@ -126,7 +126,7 @@ public class UserService {
      * @param uuid     사용자 UUID
      * @throws Exception 이름이 중복될 경우 발생
      */
-    public void updateUserName(String userName, long uuid) throws Exception {
+    public void updateUserName(String userName, long uuid) throws DuplicateMemberException {
         UserDTO userDTO = getUserByUuid(uuid);
         if (getUserByName(userName) != null) {
             throw new DuplicateMemberException("중복된 이름입니다");

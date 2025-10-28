@@ -62,7 +62,6 @@ public class JoinController {
     @PostMapping("/emailVerify")
     public ResponseEntity<String> sendVerificationEmail(@RequestBody EmailRequest request) throws MessagingException {
         String email = request.getEmail();
-        System.out.println("이메일 인증 요청: " + email);
 
         joinService.sendCodeToEmail(email); // 이메일 발송 서비스 호출
 

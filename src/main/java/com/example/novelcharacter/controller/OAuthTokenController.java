@@ -81,7 +81,6 @@ public class OAuthTokenController {
         Cookie[] cookies = request.getCookies();
 
         if (cookies == null) {
-            System.out.println("cookies is null");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
@@ -96,22 +95,17 @@ public class OAuthTokenController {
         }
 
         if (authorization == null) {
-            System.out.println("token null at OAuthTokenController");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         String token = authorization;
-        System.out.println("Authorization:" + authorization);
 
         // 기존 Authorization 쿠키 제거
         response.addCookie(createCookie("Authorization", null));
 
         try {
             boolean isExpired = jwtUtil.isExpired(token);
-            System.out.println("isExpired at OAuth: " + isExpired);
         } catch (Exception e) {
-            System.out.println("access token expired at OAUTH");
-            System.out.println(e);
 
             // 액세스 토큰 만료 시 리프레시 토큰으로 재발급 시도
             if (refresh != null) {
@@ -128,8 +122,6 @@ public class OAuthTokenController {
         long uuid = jwtUtil.getUuid(token);
         String username = jwtUtil.getUsername(token);
         String role = jwtUtil.getRole(token);
-
-        System.out.println("uuid: " + uuid + " username: " + username + " role: " + role);
 
         String access = jwtUtil.createJwt("access", uuid, username, role, 600000L);
         refresh = jwtUtil.createJwt("refresh", uuid, username, role, 86400000L);

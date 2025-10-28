@@ -44,7 +44,6 @@ public class ReissueController {
      */
     @PostMapping("/reissue")
     public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("reissue");
         return reissueService.reissue(request, response);
     }
 }

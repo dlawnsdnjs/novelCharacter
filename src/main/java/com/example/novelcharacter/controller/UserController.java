@@ -2,6 +2,7 @@ package com.example.novelcharacter.controller;
 
 import com.example.novelcharacter.JWT.JWTUtil;
 import com.example.novelcharacter.service.UserService;
+import org.apache.ibatis.javassist.bytecode.DuplicateMemberException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +43,7 @@ public class UserController {
      * @throws Exception 이름이 중복되거나 변경 권한이 없을 경우 발생
      */
     @PatchMapping("/userUpdate")
-    public void userUpdate(@RequestHeader("access") String access, @RequestBody Map<String, String> body) throws Exception {
+    public void userUpdate(@RequestHeader("access") String access, @RequestBody Map<String, String> body) throws DuplicateMemberException {
         long uuid = jwtUtil.getUuid(access);
         String userName = body.get("userName");
         userService.updateUserName(userName, uuid);

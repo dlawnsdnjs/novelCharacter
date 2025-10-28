@@ -67,9 +67,6 @@ public class NovelController {
         long uuid = jwtUtil.getUuid(access);
         String title = payload.get("title");
 
-        System.out.println("uuid: " + uuid);
-        System.out.println("title: " + title);
-
         return novelService.insertNovel(title, uuid);
     }
 
@@ -94,31 +91,27 @@ public class NovelController {
 
     /**
      * [GET] /novel/{novelNum}
-     * 특정 소설의 상세 정보를 조회.
+     * 특정 소설의 상세 정보를 조회합니다.
      *
      * @param access   JWT Access Token
      * @param novelNum 조회할 소설 번호 (PathVariable)
-     * @return ResponseEntity<NovelDTO> : 조회 성공 시 소설 정보, 권한 없을 경우 403 반환
-     * @throws NoPermissionException 권한이 없을 경우 예외 발생
+     * @return NovelDTO : 조회 성공 시 소설 정보 반환
+     * @throws NoPermissionException 권한이 없을 경우 예외 발생 (전역 예외 처리기에서 403 응답)
      *
      * 처리 과정:
      * <ol>
-     *     <li>JWT에서 UUID 추출</li>
-     *     <li>사용자 권한 검증 후 소설 데이터 조회</li>
-     *     <li>예외 발생 시 403 FORBIDDEN 반환</li>
+     *     <li>JWT에서 사용자 UUID를 추출합니다.</li>
+     *     <li>서비스 계층에서 사용자의 소설 접근 권한을 검증합니다.</li>
+     *     <li>권한이 없을 경우 {@link com.example.novelcharacter.ExceptionHandler.GlobalExceptionHandler}에서
+     *         예외를 처리하고 403 FORBIDDEN 응답을 반환합니다.</li>
+     *     <li>권한이 유효하면 소설 데이터를 조회하여 반환합니다.</li>
      * </ol>
      */
     @GetMapping("/novel/{novelNum}")
-    public ResponseEntity<?> getNovel(@RequestHeader("access") String access, @PathVariable("novelNum") long novelNum) throws NoPermissionException {
+    public NovelDTO getNovel(@RequestHeader("access") String access,
+                             @PathVariable("novelNum") long novelNum) throws NoPermissionException {
         long uuid = jwtUtil.getUuid(access);
-        try {
-            NovelDTO novel = novelService.selectNovelOne(novelNum, uuid);
-            return ResponseEntity.status(HttpStatus.OK).body(novel);
-        }
-        catch(Exception e){
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-        }
+        return novelService.selectNovelOne(novelNum, uuid);
     }
 
     /**
@@ -140,8 +133,6 @@ public class NovelController {
 
         long uuid = jwtUtil.getUuid(access);
 
-        System.out.println(novelService.selectAllNovel(uuid));
-
         return novelService.selectAllNovel(uuid);
     }
 
@@ -160,8 +151,9 @@ public class NovelController {
      * </ol>
      */
     @PostMapping("/deleteNovel")
-    public ResponseEntity<Void> deleteNovel(@RequestHeader String access, @RequestBody  Map<String, Long> payload){
-        novelService.deleteNovel(payload.get("novelNum"));
+    public ResponseEntity<Void> deleteNovel(@RequestHeader String access, @RequestBody  Map<String, Long> payload) throws NoPermissionException {
+        long uuid = jwtUtil.getUuid(access);
+        novelService.deleteNovel(payload.get("novelNum"), uuid);
         return ResponseEntity.noContent().build(); // 204 No Content
     }
 }

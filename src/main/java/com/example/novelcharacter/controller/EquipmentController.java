@@ -80,7 +80,6 @@ class EquipmentController {
     @PostMapping("/addEquipment")
     public void addEquipment(@RequestHeader String access, @Valid @RequestBody EquipmentDataDTO equipmentDataDTO) throws NoPermissionException {
         long uuid = jwtUtil.getUuid(access);
-        System.out.println("equipment: " + equipmentDataDTO);
 
         equipmentService.insertEquipment(equipmentDataDTO, uuid);
     }
@@ -96,7 +95,6 @@ class EquipmentController {
     @PostMapping("/updateEquipment")
     public void updateEquipment(@RequestHeader String access, @Valid @RequestBody EquipmentDataDTO equipmentDataDTO) throws NoPermissionException {
         long uuid = jwtUtil.getUuid(access);
-        System.out.println("equipment: " + equipmentDataDTO);
 
         equipmentService.updateEquipment(equipmentDataDTO, uuid);
     }
@@ -114,7 +112,6 @@ class EquipmentController {
     public ResponseEntity<Void> deleteEpisode(@RequestHeader String access, @RequestBody EquipmentDTO equipmentDTO) throws NoPermissionException {
         long uuid = jwtUtil.getUuid(access);
         equipmentService.deleteEquipment(equipmentDTO, uuid);
-        System.out.println("equipment: " + equipmentDTO);
 
         return ResponseEntity.noContent().build(); // 성공 시 내용 없는 204 응답 반환
     }

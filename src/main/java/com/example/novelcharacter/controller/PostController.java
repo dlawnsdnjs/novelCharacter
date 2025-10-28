@@ -61,10 +61,7 @@ public class PostController {
      */
     @GetMapping("/post/boardId={boardId}/page={page}")
     public PostPageResponseDTO selectPostsByBoardId(@PathVariable("boardId") long boardId, @PathVariable("page") int page) {
-        PostPageResponseDTO result = postService.selectPostsByBoard(boardId, page);
-        System.out.println("board");
-        System.out.println(result);
-        return result;
+        return postService.selectPostsByBoard(boardId, page);
     }
 
     /**
